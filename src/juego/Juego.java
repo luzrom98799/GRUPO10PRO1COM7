@@ -8,7 +8,7 @@ import entorno.InterfaceJuego;
 
 public class Juego extends InterfaceJuego
 {
-	// El objeto Entorno que controla el tiempo y otros
+	// El objeto Entorno que controla el tiempo y otros skjjkdskjdsk
 	private Entorno entorno;
 	
 	// Variables y métodos propios de cada grupo
@@ -43,7 +43,7 @@ public class Juego extends InterfaceJuego
 		o.dibujar1(entorno);
 		// Procesamiento de un instante de tiempo
 		// ...
-		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p.getX() - p.getAncho()/2 > entorno.ancho()) {
+		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p.getX() - p.getAncho()/2 > 0) {
 			if(p.colisionaPorIzquierda(o)==false) {
 				p.moverIzquierda();
 			}
