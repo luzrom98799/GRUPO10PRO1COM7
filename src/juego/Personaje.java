@@ -49,11 +49,26 @@ public class Personaje {
 				return true;
 			}
 		}
-		else {
-			return false;
+		return false;
+	}
+	public boolean colisionaPorArriba(Obstaculo o) {
+		if(bordeSuperior()<= o.bordeInferior() && bordeSuperior()>= o.bordeSuperior() ) {
+			if(bordeIzquierdo()<= o.bordeDerecho() && bordeDerecho()>= o.bordeIzquierdo() ) {
+				return true;
+			}
+			
 		}
 		return false;
 	}
+	public boolean colisionaPorAbajo (Obstaculo o) {
+		if(bordeInferior()>= o.bordeSuperior() && bordeInferior()<= o.bordeInferior() ) {
+			if(bordeIzquierdo()<= o.bordeDerecho() && bordeDerecho()>= o.bordeIzquierdo() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public int bordeDerecho() {
 		return this.x + this.ancho/2;
 	}
