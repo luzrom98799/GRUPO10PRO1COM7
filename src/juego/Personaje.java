@@ -1,7 +1,7 @@
 package juego;
 
 import java.awt.Color;
-import java.awt.Color;
+
 import entorno.Entorno;
 
 public class Personaje {
@@ -32,7 +32,7 @@ public class Personaje {
 	}
 	
 	public void moverArriba() {
-		this.y=this.y-5;
+		this.y=this.y-5;  
 	}
 	
 	public void moverAbajo() {

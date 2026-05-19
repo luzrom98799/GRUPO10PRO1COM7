@@ -1,8 +1,8 @@
 package juego;
 
 
-import java.awt.Color;
 import java.util.Random;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -127,6 +127,14 @@ public class Juego extends InterfaceJuego
                 islas[i].dibujar(entorno);
             }
         }
+      //gravedad del personaje
+		
+      		if ( p != null && (p.getY()+p.getAlto()/2<=entorno.alto())) {
+      			
+      		    p.setY(p.getY() + 2);
+      			}
+        
+        
 	}
 
 	@SuppressWarnings("unused")
