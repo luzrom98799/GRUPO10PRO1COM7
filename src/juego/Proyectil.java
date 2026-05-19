@@ -33,7 +33,7 @@ public class Proyectil {
 	}
 	
 	
-	public boolean colisionaConObstaculo(Obstaculo o) {
+	public boolean colisionaConObstaculo(Isla o) {
 		
 		return true;
 	}

@@ -48,43 +48,62 @@ public class Personaje {
 	}
 	
 	
-	public boolean colisionaPorIzquierda(Obstaculo o) {
-		
-		if(bordeIzquierdo()<= o.bordeDerecho() && bordeIzquierdo()>= o.bordeDerecho()-5) {
-			if(bordeInferior()>o.bordeSuperior() && bordeSuperior()<o.bordeInferior()) {
+	public boolean colisionaPorIzquierda(Isla[] islas) {
+	    for (int i = 0; i < islas.length; i++) {
+	        Isla isla = islas[i];
+	        if (isla != null) {
+
+		if(bordeIzquierdo()<= isla.bordeDerecho() && bordeIzquierdo()>= isla.bordeDerecho()-5) {
+			if(bordeInferior()>isla.bordeSuperior() && bordeSuperior()< isla.bordeInferior()) {
 				return true;				
 			}
 		}
+	    }
+	    }
+	    
 		return false;
 	}
 
 	
-	public boolean colisionaPorDerecha(Obstaculo o) {
-		
-		if(bordeDerecho()>= o.bordeIzquierdo() && bordeDerecho()< o.bordeIzquierdo()+5) {
-			if(bordeInferior()>o.bordeSuperior() && bordeSuperior()<o.bordeInferior()) {
+	public boolean colisionaPorDerecha(Isla [] islas) {
+	    for (int i = 0; i < islas.length; i++) {
+	        Isla isla = islas[i];
+	        if (isla != null) {
+		if(bordeDerecho()>= isla.bordeIzquierdo() && bordeDerecho()< isla.bordeIzquierdo()+5) {
+			if(bordeInferior() >=isla.bordeSuperior() && bordeSuperior()<isla.bordeInferior()) {
 				return true;				
 			}
+		}
+		}
+		}
+       
+		return false;
+	}
+	
+	public boolean colisionaPorArriba(Isla[] islas) {
+	    for (int i = 0; i < islas.length; i++) {
+	        Isla isla = islas[i];
+	        if (isla != null) {
+		if(bordeSuperior()<= isla.bordeInferior()&& bordeSuperior()> isla.bordeInferior()-5) {
+			if(bordeDerecho()>isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
+				return true;				
+			}
+		}
+		}
 		}
 		return false;
 	}
 	
-	public boolean colisionaPorArriba(Obstaculo o) {
-		
-		if(bordeSuperior()<= o.bordeInferior()&& bordeSuperior()> o.bordeInferior()-5) {
-			if(bordeDerecho()>o.bordeIzquierdo() && bordeIzquierdo()<o.bordeDerecho()) {
+    public boolean colisionaPorAbajo(Isla[] islas) {
+	    for (int i = 0; i < islas.length; i++) {
+	        Isla isla = islas[i];
+	        if (isla != null) {
+		if(bordeInferior()>= isla.bordeSuperior()&& bordeInferior()< isla.bordeSuperior()+5) {
+			if(bordeDerecho()>= isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
 				return true;				
 			}
 		}
-		return false;
-	}
-	
-public boolean colisionaPorAbajo(Obstaculo o) {
-		
-		if(bordeInferior()>= o.bordeSuperior()&& bordeInferior()< o.bordeSuperior()+5) {
-			if(bordeDerecho()>o.bordeIzquierdo() && bordeIzquierdo()<o.bordeDerecho()) {
-				return true;				
-			}
+		}
 		}
 		return false;
 	}

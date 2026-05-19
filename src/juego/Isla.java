@@ -1,16 +1,12 @@
-package juego;
-
-import java.awt.Color;
-
 import entorno.Entorno;
 
-public class Obstaculo {
+public class Isla {
 	private int x;
 	private int y;
 	private int ancho;
 	private int alto;
 	
-	public Obstaculo(int x, int y, int ancho, int alto) {
+	public Isla(int x, int y, int ancho, int alto) {
 		this.x = x;
 		this.y = y;
 		this.ancho = ancho;
