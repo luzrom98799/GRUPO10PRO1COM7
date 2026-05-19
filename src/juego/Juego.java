@@ -127,8 +127,7 @@ public class Juego extends InterfaceJuego
                 islas[i].dibujar(entorno);
             }
         }
-    }
-
+	}
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args)

@@ -1,5 +1,6 @@
+package juego;
+import java.awt.Color;
 import entorno.Entorno;
-
 public class Isla {
 	private int x;
 	private int y;
