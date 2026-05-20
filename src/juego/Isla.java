@@ -17,6 +17,9 @@ public class Isla {
 	public void dibujar(Entorno e) {
 		e.dibujarRectangulo(x, y, ancho, alto, 0, Color.gray);
 	}
+	public void dibujar(Entorno e, int offsetX) {
+		e.dibujarRectangulo(x-offsetX, y, ancho, alto, 0, Color.gray);
+	}
 	
 	
 	

@@ -1,8 +1,5 @@
 package juego;
-
-
 import java.util.Random;
-
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -13,6 +10,7 @@ public class Juego extends InterfaceJuego
 	private Personaje p;
 	private Isla [] islas;
 	private Enemigo [] enemigos;
+	private int offsetX = 0;
 	
 	// Variables y métodos propios de cada grupo
 	// ...
@@ -26,7 +24,7 @@ public class Juego extends InterfaceJuego
 		p = new Personaje(400,300,20,50);
 	    
 	    // tope de 30 casilleros
-	    islas = new Isla[30]; 
+	    islas = new Isla[50]; 
 	    
 	    // instancia generador
 	    Random r = new Random();
@@ -34,10 +32,10 @@ public class Juego extends InterfaceJuego
 
 	    for (int i =0; i< islas.length; i++) {
 	    	if(i<4) {
-	    	int x = 50    + (i*180);
+	    	int x = 50 + (i*180);
 	    	islas[i]= new Isla(x, 550,140,15);
 	    	} else {
-	    		int columna = i -4;
+	    		int columna = i - 4;
 	    		int x = 130 + (columna * 180) + r.nextInt(60);
 	    		int y = 170 + r.nextInt(250);
 	    		islas[i] = new Isla (x, y, 100, 15);
@@ -90,7 +88,8 @@ public class Juego extends InterfaceJuego
 			}
 		}
 		if(entorno.estaPresionada(entorno.TECLA_DERECHA) && p.getX()+p.getAncho()/2<entorno.ancho()) {
-			if(p.colisionaPorDerecha( islas )==false) {
+			if(p.colisionaPorDerecha( islas )==false){
+				offsetX+=5;
 				p.moverDerecha();							
 			}
 		}
@@ -128,9 +127,10 @@ public class Juego extends InterfaceJuego
         // Dibujado automático recorriendo el arreglo entero
         for (int i = 0; i < islas.length; i++) {
             if (islas[i] != null) {
-                islas[i].dibujar(entorno);
+                islas[i].dibujar(entorno, offsetX);
             }
         }
+        
         
         //enemigo
         for(int i=0; i<enemigos.length; i++) {
