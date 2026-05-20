@@ -125,25 +125,6 @@ public class Personaje {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public int getX() {
 		return x;

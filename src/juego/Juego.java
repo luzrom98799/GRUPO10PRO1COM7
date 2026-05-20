@@ -12,6 +12,8 @@ public class Juego extends InterfaceJuego
 	private Entorno entorno;
 	private Personaje p;
 	private Isla [] islas;
+	private Enemigo [] enemigos;
+	
 	// Variables y métodos propios de cada grupo
 	// ...
 	
@@ -51,12 +53,23 @@ public class Juego extends InterfaceJuego
 	            islas[i] = new Isla(x, y, 100, 15);
 	        }
 	    }
-
-
-
-
-
-
+	    
+	    enemigos= new Enemigo[35];
+	    for(int i=0; i<enemigos.length; i++) {
+	    	int y= 50 + r.nextInt(500);
+	    	int velocidad= 2+r.nextInt(2);
+	    	
+	    	if(i%2==0) {
+	    		int x = -50-r.nextInt(2000);
+	    		enemigos[i]=new Enemigo(x, y, 30, 30, velocidad);
+	    		
+	    	}else {
+	    		int x= 850 +r.nextInt(2000);
+	    		enemigos[i]= new Enemigo(x,y,30,30,-velocidad);
+	    		
+	    	}
+	    }
+	   
 			
 		// Inicia
 		this.entorno.iniciar(); 
@@ -126,6 +139,15 @@ public class Juego extends InterfaceJuego
             if (islas[i] != null) {
                 islas[i].dibujar(entorno);
             }
+        }
+        
+        //enemigo
+        for(int i=0; i<enemigos.length; i++) {
+        	if(enemigos[i] != null) {
+        		enemigos[i].mover();
+        		enemigos[i].dibujar(entorno);
+        	
+        	}
         }
       //gravedad del personaje
 		
