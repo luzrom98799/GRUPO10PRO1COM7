@@ -11,6 +11,8 @@ public class Juego extends InterfaceJuego
 	private Isla [] islas;
 	private Enemigo [] enemigos;
 	private int offsetX = 0;
+	private Proyectil pr;
+
 	
 	// Variables y métodos propios de cada grupo
 	// ...
@@ -42,7 +44,7 @@ public class Juego extends InterfaceJuego
 	    	}
 	    }
 	    
-	    enemigos= new Enemigo[35];
+	    enemigos= new Enemigo[65];
 	    for(int i=0; i<enemigos.length; i++) {
 	    	int y= 50 + r.nextInt(500);
 	    	int velocidad= 2+r.nextInt(2);
@@ -120,8 +122,20 @@ public class Juego extends InterfaceJuego
 		
 		
 		//colisiones del proyectil
-		if(p.getDisparo()!=null && p.getDisparo().getX()<0) {
+		if(p.getDisparo()!=null && p.getDisparo().getX()<0 || p.getDisparo()!=null &&  p.getDisparo().getY()<0 ||
+			p.getDisparo()!=null && p.getDisparo().getX()>entorno.ancho() || p.getDisparo()!=null &&  p.getDisparo().getY()>entorno.alto()	)
+		
+		
+			{
 			p.setDisparo(null);
+			
+			
+				
+				
+			}
+		if ( p != null && pr!=null && p.getAncho() == pr.getX() ||  p!=null && pr!=null && p.getAlto()==pr.getY()  ) {
+			p = null;
+			pr=null;
 		}
 		
         // Dibujado automático recorriendo el arreglo entero
@@ -148,10 +162,7 @@ public class Juego extends InterfaceJuego
             }
         }
       	
-      //colisiones con las islas
-//        if (p.colisionaPorAbajo(islas)==false ) {
-//        	p.setY(p.getY());
-//        }
+     
       		
 	}
 
