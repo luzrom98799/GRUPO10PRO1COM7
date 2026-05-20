@@ -92,9 +92,10 @@ public class Juego extends InterfaceJuego
 			}
 		}
 		
-		if(entorno.estaPresionada(entorno.TECLA_ARRIBA) && p.getY()-p.getAlto()/2>=0) {
+		if(entorno.sePresiono(entorno.TECLA_ARRIBA) && p.getY()-p.getAlto()/2>=0) {
 			if(p.colisionaPorArriba(islas)==false) {
-				p.moverArriba();				
+				p.moverArriba();
+				p.setY(p.getY() -40 );
 			}
 		}
 		
@@ -129,12 +130,17 @@ public class Juego extends InterfaceJuego
         }
       //gravedad del personaje
 		
-      		if ( p != null && (p.getY()+p.getAlto()/2<=entorno.alto())) {
-      			
-      		    p.setY(p.getY() + 2);
-      			}
-        
-        
+        if (p != null) {
+            if (!p.colisionaPorAbajo(islas)) {
+                p.setY(p.getY() + 2);   // cae
+            }
+        }
+      	
+      //colisiones con las islas
+//        if (p.colisionaPorAbajo(islas)==false ) {
+//        	p.setY(p.getY());
+//        }
+      		
 	}
 
 	@SuppressWarnings("unused")
