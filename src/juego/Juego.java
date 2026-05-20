@@ -29,29 +29,19 @@ public class Juego extends InterfaceJuego
 	    islas = new Isla[30]; 
 	    
 	    // instancia generador
-	    Random r = new Random(System.currentTimeMillis());
+	    Random r = new Random();
+	    
 
-	    for (int i = 0; i < 12; i++) {
-	        
-	        if (i < 4) { // NIVEL BAJO 
-
-	            int x = 90 + (i * 180); 
-	            islas[i] = new Isla(x, 550, 140, 15);
-	            
-	        } else if (i >= 4 && i < 8) { 
-	            int columna = i - 4; 
-
-	            int x = 80 + (columna * 180) + r.nextInt(80); 
-	            int y = 350 + r.nextInt(30); 
-	            islas[i] = new Isla(x, y, 120, 15);
-	            
-	        } else { // NIVEL ALTO 
-	            int columna = i - 8; 
-	            int x = 130 + (columna * 180) + r.nextInt(60); 
-	      
-	            int y = 170 + r.nextInt(30); 
-	            islas[i] = new Isla(x, y, 100, 15);
-	        }
+	    for (int i =0; i< islas.length; i++) {
+	    	if(i<4) {
+	    	int x = 50    + (i*180);
+	    	islas[i]= new Isla(x, 550,140,15);
+	    	} else {
+	    		int columna = i -4;
+	    		int x = 130 + (columna * 180) + r.nextInt(60);
+	    		int y = 170 + r.nextInt(250);
+	    		islas[i] = new Isla (x, y, 100, 15);
+	    	}
 	    }
 	    
 	    enemigos= new Enemigo[35];
@@ -62,12 +52,12 @@ public class Juego extends InterfaceJuego
 	    	if(i%2==0) {
 	    		int x = -50-r.nextInt(2000);
 	    		enemigos[i]=new Enemigo(x, y, 30, 30, velocidad);
-	    		
 	    	}else {
 	    		int x= 850 +r.nextInt(2000);
 	    		enemigos[i]= new Enemigo(x,y,30,30,-velocidad);
 	    		
 	    	}
+	    		
 	    }
 	   
 			
