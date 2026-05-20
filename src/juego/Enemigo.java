@@ -40,8 +40,7 @@ public class Enemigo {
 	}
 	
 	public boolean colisionaConIsla(Isla isla) {
-		if (bordeDerecho()>= isla.bordeIzquierdo()&&
-		    bordeIzquierdo()<= isla.bordeDerecho()&&
+		if (bordeDerecho()>= isla.bordeIzquierdo()&& bordeIzquierdo()<= isla.bordeDerecho()&&
 		    bordeInferior()>=isla.bordeSuperior()&&
 		    bordeSuperior()<=isla.bordeInferior()) {
 			
