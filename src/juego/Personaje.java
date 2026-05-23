@@ -1,9 +1,6 @@
 package juego;
-
 import java.awt.Color;
-
 import entorno.Entorno;
-
 public class Personaje {
 	private int x;
 	private int y;
@@ -48,11 +45,10 @@ public class Personaje {
 	}
 	
 	
-	public boolean colisionaPorIzquierda(Isla[] islas) {
+	public boolean colisionaPorIzquierda(Isla[] islas, int offsetX) {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {
-
 		if(bordeIzquierdo()<= isla.bordeDerecho() && bordeIzquierdo()>= isla.bordeDerecho()-5) {
 			if(bordeInferior()>isla.bordeSuperior() && bordeSuperior()< isla.bordeInferior()) {
 				return true;				
@@ -65,7 +61,7 @@ public class Personaje {
 	}
 
 	
-	public boolean colisionaPorDerecha(Isla [] islas) {
+	public boolean colisionaPorDerecha(Isla [] islas, int offsetX) {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {
@@ -80,12 +76,12 @@ public class Personaje {
 		return false;
 	}
 	
-	public boolean colisionaPorArriba(Isla[] islas) {
+	public boolean colisionaPorArriba(Isla[] islas, int offsetX) {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {
-		if(bordeSuperior()<= isla.bordeInferior()&& bordeSuperior()> isla.bordeInferior()-5) {
-			if(bordeDerecho()>isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
+		if(bordeSuperior()<= isla.bordeInferior() && bordeSuperior()> isla.bordeInferior()-5) {
+			if(bordeDerecho()>= isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
 				return true;				
 			}
 		}
@@ -94,7 +90,7 @@ public class Personaje {
 		return false;
 	}
 	
-    public boolean colisionaPorAbajo(Isla[] islas) {
+    public boolean colisionaPorAbajo(Isla[] islas, int offsetX) {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {

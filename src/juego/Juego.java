@@ -25,10 +25,9 @@ public class Juego extends InterfaceJuego
 		// ...
 		p = new Personaje(400,300,20,50);
 	    
-	    // tope de 30 casilleros
 	    islas = new Isla[50]; 
 	    
-	    // instancia generador
+	    // RANDOM
 	    Random r = new Random();
 	    
 
@@ -84,27 +83,36 @@ public class Juego extends InterfaceJuego
 		
 		
 		//capturar presion de teclas
-		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p.getX()-p.getAncho()/2>0) {
-			if(p.colisionaPorIzquierda(islas)==false) {
+		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p!=null && p.getX()-p.getAncho()/2>0) {
+			if(p.colisionaPorIzquierda(islas, offsetX)==false) {
 				p.moverIzquierda();							
 			}
 		}
-		if(entorno.estaPresionada(entorno.TECLA_DERECHA) && p.getX()+p.getAncho()/2<entorno.ancho()) {
-			if(p.colisionaPorDerecha( islas )==false){
-				offsetX+=5;
-				p.moverDerecha();							
-			}
+		if(entorno.estaPresionada(entorno.TECLA_DERECHA) && p!=null && p.getX()+ p.getAncho()/2< entorno.ancho() ) {
+			if(p.colisionaPorDerecha(islas, offsetX)==false) {
+				int ultimaIsla = islas[islas.length-1].getX();
+				
+		        if (p.getX() < 400) {
+		            p.moverDerecha();
+		        } else {
+		            if (ultimaIsla - offsetX > 750) {
+		                offsetX += 5;
+		            } else if (p.getX() + p.getAncho()/2 < entorno.ancho()) {
+		                p.moverDerecha();
+		            }
+		        }
+		    }
 		}
 		
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA) && p.getY()-p.getAlto()/2>=0) {
-			if(p.colisionaPorArriba(islas)==false) {
+			if(p.colisionaPorArriba(islas, offsetX)==false) {
 				p.moverArriba();
 				p.setY(p.getY() -40 );
 			}
 		}
 		
 		if(entorno.estaPresionada(entorno.TECLA_ABAJO) && p.getY()+p.getAlto()/2<=entorno.alto()) {
-			if(p.colisionaPorAbajo(islas)==false) {
+			if(p.colisionaPorAbajo(islas, offsetX)==false) {
 				p.moverAbajo();				
 			}
 		}
@@ -138,7 +146,7 @@ public class Juego extends InterfaceJuego
 			pr=null;
 		}
 		
-        // Dibujado automático recorriendo el arreglo entero
+        // Dibujado recorriendo el arreglo islas
         for (int i = 0; i < islas.length; i++) {
             if (islas[i] != null) {
                 islas[i].dibujar(entorno, offsetX);
@@ -157,8 +165,8 @@ public class Juego extends InterfaceJuego
       //gravedad del personaje
 		
         if (p != null) {
-            if (!p.colisionaPorAbajo(islas)) {
-                p.setY(p.getY() + 2);   // cae
+            if (!p.colisionaPorAbajo(islas, offsetX)) {
+                p.setY(p.getY() + 2);   // 
             }
         }
       	
