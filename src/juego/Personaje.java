@@ -49,7 +49,7 @@ public class Personaje {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {
-		if(bordeIzquierdo()<= isla.bordeDerecho() && bordeIzquierdo()>= isla.bordeDerecho()-5) {
+		if(bordeIzquierdo()<= isla.bordeDerecho(offsetX) && bordeIzquierdo()>= isla.bordeDerecho(offsetX)-5) {
 			if(bordeInferior()>isla.bordeSuperior() && bordeSuperior()< isla.bordeInferior()) {
 				return true;				
 			}
@@ -65,7 +65,7 @@ public class Personaje {
 	    for (int i = 0; i < islas.length; i++) {
 	        Isla isla = islas[i];
 	        if (isla != null) {
-		if(bordeDerecho()>= isla.bordeIzquierdo() && bordeDerecho()< isla.bordeIzquierdo()+5) {
+		if(bordeDerecho()>= isla.bordeIzquierdo(offsetX) && bordeDerecho()< isla.bordeIzquierdo(offsetX)+5) {
 			if(bordeInferior() >=isla.bordeSuperior() && bordeSuperior()<isla.bordeInferior()) {
 				return true;				
 			}
@@ -81,7 +81,7 @@ public class Personaje {
 	        Isla isla = islas[i];
 	        if (isla != null) {
 		if(bordeSuperior()<= isla.bordeInferior() && bordeSuperior()> isla.bordeInferior()-5) {
-			if(bordeDerecho()>= isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
+			if(bordeDerecho()>= isla.bordeIzquierdo(offsetX) && bordeIzquierdo()<isla.bordeDerecho(offsetX)) {
 				return true;				
 			}
 		}
@@ -95,7 +95,7 @@ public class Personaje {
 	        Isla isla = islas[i];
 	        if (isla != null) {
 		if(bordeInferior()>= isla.bordeSuperior()&& bordeInferior()< isla.bordeSuperior()+5) {
-			if(bordeDerecho()>= isla.bordeIzquierdo() && bordeIzquierdo()<isla.bordeDerecho()) {
+			if(bordeDerecho()>= isla.bordeIzquierdo(offsetX) && bordeIzquierdo()<isla.bordeDerecho(offsetX)) {
 				return true;				
 			}
 		}

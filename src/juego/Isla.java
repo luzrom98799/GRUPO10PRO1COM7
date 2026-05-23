@@ -23,11 +23,11 @@ public class Isla {
 	
 	
 	
-	public int bordeDerecho() {
-		return this.x+this.ancho/2;
+	public int bordeDerecho(int offsetX) {
+		return (this.x+this.ancho/2)-offsetX;
 	}
-	public int bordeIzquierdo() {
-		return this.x-this.ancho/2;
+	public int bordeIzquierdo(int offsetX) {
+		return (this.x-this.ancho/2)- offsetX;
 	}
 	public int bordeInferior() {
 		return this.y+this.alto/2;
