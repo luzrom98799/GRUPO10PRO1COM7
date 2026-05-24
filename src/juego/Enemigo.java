@@ -33,25 +33,35 @@ public class Enemigo {
 	
 	public boolean fueraDePantallita() {
 		
-		return (x < -ancho || x > 800 + ancho);
 		
-	}
+		
+		return (x < -ancho || x > 800 + ancho);
+		}
+
 	
 	public boolean colisionaConIsla(Isla isla, int offsetX) {
 		if (bordeDerecho()>= isla.bordeIzquierdo(offsetX)&& bordeIzquierdo()<= isla.bordeDerecho(offsetX)&&
 		    bordeInferior()>=isla.bordeSuperior()&&
 		    bordeSuperior()<=isla.bordeInferior()) {
 			
-			return true;
+			return false;
 		}
 		
-		return false;
+		return true;
 	}
 	
 	public int bordeDerecho() {
 		return this.x+this.ancho/2;
 	}
 	
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+
 	public int bordeIzquierdo() {
 		return this.x-this.ancho/2;
 	}
@@ -67,7 +77,9 @@ public class Enemigo {
 	public int getX() {
 		return x;
 	}
-	
+	public int getY() {
+		return y;
+	}
 	public void setX(int x) {
 		this.x= x;
 	}

@@ -24,7 +24,7 @@ public class Proyectil {
 	}
 	
 	public void dibujar(Entorno e) {
-		e.dibujarCirculo(x, y, radio*2, Color.BLUE);
+		e.dibujarCirculo(x, y, radio*3, Color.BLUE);
 	}
 	
 	public void mover() {
@@ -33,9 +33,24 @@ public class Proyectil {
 	}
 	
 	
-	public boolean colisionaConObstaculo(Isla o) {
-		
-		return true;
+	
+	public boolean colisionaConObstaculo(Enemigo enemigo) {
+	    if (enemigo == null) {
+	        return false;
+	    }
+
+	    double izq = enemigo.getX() - enemigo.getAncho()/2;
+	    double der = enemigo.getX() + enemigo.getAncho()/2;
+	    double arriba = enemigo.getY() - enemigo.getAlto()/2;
+	    double abajo = enemigo.getY() + enemigo.getAlto()/2;
+
+	    double puntoX = Math.max(izq, Math.min(x, der));
+	    double puntoY = Math.max(arriba, Math.min(y, abajo));
+
+	    double dx = x -puntoX;
+	    double dy = y - puntoY;
+
+	    return (dx * dx + dy * dy) <= (radio * radio);
 	}
 
 
@@ -67,6 +82,7 @@ public class Proyectil {
 	public void setRadio(double radio) {
 		this.radio = radio;
 	}
+
 	
 	
 	

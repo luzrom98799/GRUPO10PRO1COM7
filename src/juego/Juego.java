@@ -11,7 +11,7 @@ public class Juego extends InterfaceJuego
 	private Isla [] islas;
 	private Enemigo [] enemigos;
 	private int offsetX = 0;
-	private Proyectil pr;
+	
 
 	
 	// Variables y métodos propios de cada grupo
@@ -24,6 +24,7 @@ public class Juego extends InterfaceJuego
 		// Inicializar para el juego
 		// ...
 		p = new Personaje(400,300,20,50);
+		
 	    
 	    islas = new Isla[50]; 
 	    
@@ -31,21 +32,30 @@ public class Juego extends InterfaceJuego
 	    Random r = new Random();
 	    
 
-	    for (int i =0; i< islas.length; i++) {
-	    	if(i<4) {
-	    	int x = 50 + (i*180);
-	    	islas[i]= new Isla(x, 550,140,15);
-	    	} else {
-	    		int columna = i - 4;
-	    		int x = 130 + (columna * 180) + r.nextInt(60);
-	    		int y = 170 + r.nextInt(250);
-	    		islas[i] = new Isla (x, y, 100, 15);
-	    	}
+	    for (int i = 0; i < islas.length; i++) {
+	        int columna = i / 3;   
+	        int fila = i % 3;      
+
+	        int x = 100 + (columna * 180);
+
+	        if (fila == 0) {   
+	            islas[i] = new Isla(x, 500, 140, 200);
+
+	        } else if (fila == 1) {   
+	            int y = 300 + r.nextInt(80);  
+	            islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
+
+	        } else {   
+	            int y = 160 + r.nextInt(80);
+	            islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
+	        }
 	    }
+	
+	    
 	    
 	    enemigos= new Enemigo[65];
 	    for(int i=0; i<enemigos.length; i++) {
-	    	int y= 50 + r.nextInt(500);
+	    	int y= 50 + r.nextInt(300);
 	    	int velocidad= 2+r.nextInt(2);
 	    	
 	    	if(i%2==0) {
@@ -58,6 +68,10 @@ public class Juego extends InterfaceJuego
 	    	}
 	    		
 	    }
+	    
+	    
+	    
+	    
 	   
 			
 		// Inicia
@@ -104,18 +118,14 @@ public class Juego extends InterfaceJuego
 		    }
 		}
 		
-		if(entorno.sePresiono(entorno.TECLA_ARRIBA) && p.getY()-p.getAlto()/2>=0) {
+		if(entorno.estaPresionada(entorno.TECLA_ARRIBA) && (p.getY()-p.getAlto()/2>=0) && p.colisionaPorAbajo(islas, offsetX))  {
 			if(p.colisionaPorArriba(islas, offsetX)==false) {
 				p.moverArriba();
-				p.setY(p.getY() -40 );
+				p.setY(p.getY() - 50 );
 			}
 		}
 		
-		if(entorno.estaPresionada(entorno.TECLA_ABAJO) && p.getY()+p.getAlto()/2<=entorno.alto()) {
-			if(p.colisionaPorAbajo(islas, offsetX)==false) {
-				p.moverAbajo();				
-			}
-		}
+
 		
 		if(entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) && p.getDisparo()==null) {
 			p.disparar(entorno.mouseX(),entorno.mouseY());
@@ -129,22 +139,27 @@ public class Juego extends InterfaceJuego
 		}
 		
 		
-		//colisiones del proyectil
+		//el proyectil se vuelve null si sale del entorno	
 		if(p.getDisparo()!=null && p.getDisparo().getX()<0 || p.getDisparo()!=null &&  p.getDisparo().getY()<0 ||
 			p.getDisparo()!=null && p.getDisparo().getX()>entorno.ancho() || p.getDisparo()!=null &&  p.getDisparo().getY()>entorno.alto()	)
 		
 		
 			{
 			p.setDisparo(null);
-			
-			
-				
-				
 			}
-		if ( p != null && pr!=null && p.getAncho() == pr.getX() ||  p!=null && pr!=null && p.getAlto()==pr.getY()  ) {
-			p = null;
-			pr=null;
-		}
+	
+		
+		//colision entre el proyectil y los enemigos
+		for (int i = 0; i < enemigos.length; i++) {
+			   if (enemigos[i] != null && p.getDisparo() != null) {
+			       if (p.getDisparo().colisionaConObstaculo(enemigos[i])) {
+			           enemigos[i] = null;  
+			             
+			        }
+			    }
+			}
+			
+		
 		
         // Dibujado recorriendo el arreglo islas
         for (int i = 0; i < islas.length; i++) {
@@ -156,17 +171,18 @@ public class Juego extends InterfaceJuego
         
         //enemigo
         for(int i=0; i<enemigos.length; i++) {
-        	if(enemigos[i] != null) {
+        	if(enemigos[i] != null  ) {
         		enemigos[i].mover();
         		enemigos[i].dibujar(entorno);
         	
         	}
+//        	if (enemigos.) {
         }
       //gravedad del personaje
 		
         if (p != null) {
             if (!p.colisionaPorAbajo(islas, offsetX)) {
-                p.setY(p.getY() + 2);   // 
+                p.setY(p.getY() + 1);   // 
             }
         }
       	
