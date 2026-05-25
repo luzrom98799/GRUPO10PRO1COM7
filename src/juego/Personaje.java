@@ -7,8 +7,8 @@ public class Personaje {
 	private int ancho;
 	private int alto;
 	private Proyectil disparo;
-//	private double vida;
-//	private boolean impacto;
+	private double vida;
+	private boolean muerto;
 	
 	public Personaje(int x, int y, int ancho, int alto) {
 		this.x = x;
@@ -16,7 +16,7 @@ public class Personaje {
 		this.ancho = ancho;
 		this.alto = alto;
 		this.disparo=null;
-//		this.vida = 5;
+		this.vida = 5;
 	}
 	
 	public void dibujar(Entorno e) {
@@ -48,16 +48,17 @@ public class Personaje {
 	}
 	
 	
-//	 public void recibirDaño(double cantidad) {
-//	        if (!impacto) {
-//	            vida -= cantidad;
-//	            if (vida <= 0) {
-//	                vida = 0;
-//	                impacto = true;
-//	            }
-//	        }
-//	    }
-//	
+	 public void recibirDaño(double cantidad) {
+	        if (!muerto) {
+	            vida -= cantidad;
+	            if (vida <= 0) {
+	                vida = 0;
+	                muerto=true;
+	               
+	            }
+	        }
+	    }
+	
 	
 	public boolean colisionaPorIzquierda(Isla[] islas, int offsetX) {
 	    for (int i = 0; i < islas.length; i++) {

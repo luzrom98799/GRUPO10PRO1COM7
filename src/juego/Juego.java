@@ -160,18 +160,26 @@ public class Juego extends InterfaceJuego
 			    }
 			}
 		//colision entre personaje y enemigo
-//		for (int i = 0; i < enemigos.length; i++) {
-//			if (enemigos[i] != null && p!=null) {
-//				if( p.bordeDerecho()== enemigos[i].bordeIzquierdo()  ||  p.bordeIzquierdo()==enemigos[i].bordeDerecho() 
-//						||  p.bordeInferior()==enemigos[i].bordeSuperior() || p.bordeSuperior()==enemigos[i].bordeInferior()) {
-//					
-//					enemigos[i]=null;
-//					break;
-//					
-//				}
-//			}
-//			
-//		}
+		for (int i = 0; i < enemigos.length; i++) {
+			if (enemigos[i] != null && p!=null ) {
+				if( p.bordeDerecho() >= enemigos[i].bordeIzquierdo()  &&  p.bordeIzquierdo()<=enemigos[i].bordeDerecho() 
+						&&  p.bordeInferior()>=enemigos[i].bordeSuperior() && p.bordeSuperior()<=enemigos[i].bordeInferior()) {
+					 
+					enemigos[i] = null;
+					p.recibirDaño(1);
+					p=null;
+					p= new Personaje(400,300,20,50);
+					
+				
+					 
+					
+				}
+			}
+			
+		}
+		
+		
+		
 		
 		
         // Dibujado recorriendo el arreglo islas
@@ -211,11 +219,10 @@ public class Juego extends InterfaceJuego
      if (p!=null && p.getY()>entorno.alto()) {
     	 p=null;
     	 p= new Personaje(400,300,20,50);
-    	 
-    	 
-    	 
+    	 	 
     	 
      }
+     
       		
 	}
 
