@@ -97,6 +97,7 @@ public class Juego extends InterfaceJuego
 		
 		
 		
+		
 		//capturar presion de teclas
 		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p!=null && p.getX()-p.getAncho()/2>0) {
 			if(p.colisionaPorIzquierda(islas, offsetX)==false) {
@@ -158,7 +159,19 @@ public class Juego extends InterfaceJuego
 			        }
 			    }
 			}
-			
+		//colision entre personaje y enemigo
+//		for (int i = 0; i < enemigos.length; i++) {
+//			if (enemigos[i] != null && p!=null) {
+//				if( p.bordeDerecho()== enemigos[i].bordeIzquierdo()  ||  p.bordeIzquierdo()==enemigos[i].bordeDerecho() 
+//						||  p.bordeInferior()==enemigos[i].bordeSuperior() || p.bordeSuperior()==enemigos[i].bordeInferior()) {
+//					
+//					enemigos[i]=null;
+//					break;
+//					
+//				}
+//			}
+//			
+//		}
 		
 		
         // Dibujado recorriendo el arreglo islas
@@ -176,7 +189,7 @@ public class Juego extends InterfaceJuego
         		enemigos[i].dibujar(entorno);
         	
         	}
-//        	if (enemigos.) {
+
         }
       //gravedad del personaje
 		
@@ -194,8 +207,15 @@ public class Juego extends InterfaceJuego
                 salto = 0;
             }
         }
-      	
-     
+      //una vez que el personaje cae vuelve al centro de la pantalla	
+     if (p!=null && p.getY()>entorno.alto()) {
+    	 p=null;
+    	 p= new Personaje(400,300,20,50);
+    	 
+    	 
+    	 
+    	 
+     }
       		
 	}
 
