@@ -11,6 +11,7 @@ public class Juego extends InterfaceJuego
 	private Isla [] islas;
 	private Enemigo [] enemigos;
 	private int offsetX = 0;
+	private int salto = 0;
 	
 
 	
@@ -118,12 +119,10 @@ public class Juego extends InterfaceJuego
 		    }
 		}
 		
-		if(entorno.estaPresionada(entorno.TECLA_ARRIBA) && (p.getY()-p.getAlto()/2>=0) && p.colisionaPorAbajo(islas, offsetX))  {
-			if(p.colisionaPorArriba(islas, offsetX)==false) {
-				p.moverArriba();
-				p.setY(p.getY() - 50 );
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA) && p.colisionaPorAbajo(islas, offsetX) && salto == 0) {
+
+			    salto = 30;
 			}
-		}
 		
 
 		
@@ -153,7 +152,8 @@ public class Juego extends InterfaceJuego
 		for (int i = 0; i < enemigos.length; i++) {
 			   if (enemigos[i] != null && p.getDisparo() != null) {
 			       if (p.getDisparo().colisionaConObstaculo(enemigos[i])) {
-			           enemigos[i] = null;  
+			           enemigos[i] = null; 
+			           p.setDisparo(null);
 			             
 			        }
 			    }
@@ -182,7 +182,16 @@ public class Juego extends InterfaceJuego
 		
         if (p != null) {
             if (!p.colisionaPorAbajo(islas, offsetX)) {
-                p.setY(p.getY() + 1);   // 
+                p.setY(p.getY() + 2);   // 
+            }
+        }
+        // el personaje sube gradualmente
+        if (salto > 0) {
+            if (!p.colisionaPorArriba(islas, offsetX)) {
+                p.setY(p.getY() - 6);
+                salto--;
+            } else {
+                salto = 0;
             }
         }
       	
