@@ -245,6 +245,7 @@ public class Juego extends InterfaceJuego
         }
       //una vez que el personaje cae vuelve al centro de la pantalla	
      if (p!=null && p.getY()>entorno.alto()) {
+    	 cantidadVidas--;
     	 p=null;
     	 p= new Personaje(400,300,20,50);
     	 	 
