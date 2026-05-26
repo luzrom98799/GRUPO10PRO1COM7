@@ -1,4 +1,5 @@
 package juego;
+import java.awt.Color;
 import java.util.Random;
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -100,6 +101,15 @@ public class Juego extends InterfaceJuego
 	 */
 	public void tick()
 	{
+		if(perdio) {
+			entorno.escribirTexto("perdiste el juego wey", 350,300);
+			return;
+		}
+		
+		if(gano) {
+			entorno.escribirTexto("ganastee!!", 350, 300);
+			return;
+		}
 		// Procesamiento de un instante de tiempo
 		// ...
 		
@@ -251,12 +261,16 @@ public class Juego extends InterfaceJuego
     	 	 
     	 
      }
-     
+     if (cantidadVidas<=0) {
+    	 perdio=true;
+     }
      if (gano) {
     	 entorno.escribirTexto("ganaste el juego", 350, 300);
     	 
      }
-     
+     if (perdio) {
+    	 entorno.escribirTexto("perdiste el juego", 350, 300);
+     }
       		
 	}
 
