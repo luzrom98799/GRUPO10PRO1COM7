@@ -14,6 +14,9 @@ public class Juego extends InterfaceJuego
 	private int salto = 0;
 	private Castillo castillo;
 	private boolean gano;
+	private Vida[]vidas;
+	private int cantidadVidas;
+	private boolean perdio;
 	
 
 	
@@ -75,6 +78,14 @@ public class Juego extends InterfaceJuego
 	    castillo= new Castillo(3005,300,120,200);
 	    gano=false;
 	    
+	    cantidadVidas=8;
+	    vidas= new Vida[cantidadVidas];
+	    for (int i =0; i<vidas.length; i++) {
+	    	vidas[i]= new Vida(30+(i*25),30,15);
+	    }
+	    
+	    perdio= false;
+	    	
 	    
 	   
 			
@@ -94,6 +105,11 @@ public class Juego extends InterfaceJuego
 		
 		//dibujado
 		p.dibujar(entorno);
+		for (int i=0;i< cantidadVidas; i++) {
+			if (vidas[i]!=null) {
+				vidas[i].dibujar(entorno);
+			}
+		}
 		if(p.getDisparo()!=null) {
 			p.getDisparo().dibujar(entorno);			
 		}
@@ -170,6 +186,7 @@ public class Juego extends InterfaceJuego
 					 
 					enemigos[i] = null;
 					p.recibirDaño(1);
+					cantidadVidas--;
 					p=null;
 					p= new Personaje(400,300,20,50);
 					
