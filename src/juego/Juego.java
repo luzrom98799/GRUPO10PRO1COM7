@@ -54,16 +54,16 @@ public class Juego extends InterfaceJuego
 	
 	    
 	    
-	    enemigos= new Enemigo[65];
+	    enemigos= new Enemigo[120];
 	    for(int i=0; i<enemigos.length; i++) {
 	    	int y= 50 + r.nextInt(300);
 	    	int velocidad= 2+r.nextInt(2);
 	    	
 	    	if(i%2==0) {
-	    		int x = -50-r.nextInt(2000);
+	    		int x = -50-(i*350);
 	    		enemigos[i]=new Enemigo(x, y, 30, 30, velocidad);
 	    	}else {
-	    		int x= 850 +r.nextInt(2000);
+	    		int x= 850 +(i*350);
 	    		enemigos[i]= new Enemigo(x,y,30,30,-velocidad);
 	    		
 	    	}
