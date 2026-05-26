@@ -235,7 +235,7 @@ public class Juego extends InterfaceJuego
      }
      
      if (gano) {
-    	 entorno.escribirTexto("ganaste el juugo", 300, 250);
+    	 entorno.escribirTexto("ganaste el juego", 350, 300);
     	 
      }
      
