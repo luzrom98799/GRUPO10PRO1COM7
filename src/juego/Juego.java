@@ -12,6 +12,8 @@ public class Juego extends InterfaceJuego
 	private Enemigo [] enemigos;
 	private int offsetX = 0;
 	private int salto = 0;
+	private Castillo castillo;
+	private boolean gano;
 	
 
 	
@@ -70,7 +72,8 @@ public class Juego extends InterfaceJuego
 	    		
 	    }
 	    
-	    
+	    castillo= new Castillo(3005,300,120,200);
+	    gano=false;
 	    
 	    
 	   
@@ -178,6 +181,12 @@ public class Juego extends InterfaceJuego
 			
 		}
 		
+		if (p!= null) {
+			if (p.bordeDerecho()>= castillo.bordeIzquierdo(offsetX) && p.bordeIzquierdo()<= castillo.bordeDerecho(offsetX)
+					&& p.bordeInferior()>=castillo.bordeSuperior()&& p.bordeSuperior()<= castillo.bordeInferior()) {
+				gano=true;
+			}
+		}
 		
 		
 		
@@ -188,6 +197,8 @@ public class Juego extends InterfaceJuego
                 islas[i].dibujar(entorno, offsetX);
             }
         }
+        
+        castillo.dibujar(entorno, offsetX);
         
         
         //enemigo
@@ -220,6 +231,11 @@ public class Juego extends InterfaceJuego
     	 p=null;
     	 p= new Personaje(400,300,20,50);
     	 	 
+    	 
+     }
+     
+     if (gano) {
+    	 entorno.escribirTexto("ganaste el juugo", 300, 250);
     	 
      }
      
