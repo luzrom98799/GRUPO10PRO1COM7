@@ -39,16 +39,16 @@ public class Enemigo {
 		}
 
 	
-	public boolean colisionaConIsla(Isla isla, int offsetX) {
-		if (bordeDerecho()>= isla.bordeIzquierdo(offsetX)&& bordeIzquierdo()<= isla.bordeDerecho(offsetX)&&
-		    bordeInferior()>=isla.bordeSuperior()&&
-		    bordeSuperior()<=isla.bordeInferior()) {
-			
-			return false;
-		}
-		
-		return true;
-	}
+//	public boolean colisionaConIsla(Isla isla, int offsetX) {
+//		if (bordeDerecho()>= isla.bordeIzquierdo(offsetX)&& bordeIzquierdo()<= isla.bordeDerecho(offsetX)&&
+//		    bordeInferior()>=isla.bordeSuperior()&&
+//		    bordeSuperior()<=isla.bordeInferior()) {
+//			
+//			return true;
+//		}
+//		
+//		return true;
+//	}
 	
 	public int bordeDerecho() {
 		return this.x+this.ancho/2;

@@ -19,8 +19,8 @@ public class Proyectil {
 		this.dx=deltaX;
 		this.dy=deltaY;
 		double distancia= Math.sqrt(dx*dx + dy*dy);
-		this.dx=this.dx/distancia;
-		this.dy=this.dy/distancia;
+		this.dx=(this.dx/distancia)*6;
+		this.dy=(this.dy/distancia)*6;
 	}
 	
 	public void dibujar(Entorno e) {

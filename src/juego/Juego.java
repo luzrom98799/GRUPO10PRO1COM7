@@ -1,6 +1,6 @@
 package juego;
-import java.awt.Color;
 import java.util.Random;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -18,6 +18,7 @@ public class Juego extends InterfaceJuego
 	private Vida[]vidas;
 	private int cantidadVidas;
 	private boolean perdio;
+	private Random r = new Random();
 	
 
 	
@@ -36,7 +37,7 @@ public class Juego extends InterfaceJuego
 	    islas = new Isla[50]; 
 	    
 	    // RANDOM
-	    Random r = new Random();
+	    
 	    
 
 	    for (int i = 0; i < islas.length; i++) {
@@ -60,20 +61,24 @@ public class Juego extends InterfaceJuego
 	
 	    
 	    
-	    enemigos= new Enemigo[120];
-	    for(int i=0; i<enemigos.length; i++) {
-	    	int y= 50 + r.nextInt(300);
-	    	int velocidad= 2+r.nextInt(2);
-	    	
-	    	if(i%2==0) {
-	    		int x = -50-(i*350);
-	    		enemigos[i]=new Enemigo(x, y, 30, 30, velocidad);
-	    	}else {
-	    		int x= 850 +(i*350);
-	    		enemigos[i]= new Enemigo(x,y,30,30,-velocidad);
-	    		
-	    	}
-	    		
+	    enemigos= new Enemigo[4];
+	    for(int i = 0; i < enemigos.length; i++) {
+
+	        int y = 50 + r.nextInt(300);
+	        int velocidad = 3;
+
+	        if(i % 2 == 0) {
+	            int x = -50 - r.nextInt(300);
+
+	            enemigos[i] = new Enemigo(x, y, 30, 30, velocidad);
+
+	        } else {
+
+	            int x = 850 + r.nextInt(300);
+
+	            enemigos[i] = new Enemigo(x, y, 30, 30, -velocidad);
+	        }
+	       
 	    }
 	    
 	    castillo= new Castillo(3005,300,120,200);
@@ -206,7 +211,19 @@ public class Juego extends InterfaceJuego
 				}
 			}
 			
+			
+		//reaparicion de enemigos	
 		}
+//		for (int i = 0; i < enemigos.length; i++) {
+//		 if (enemigos[i] != null) {
+//
+//	            if (enemigos[i].getX() < entorno.ancho() ||
+//	                enemigos[i].getX() > entorno.ancho() ) {
+//
+//	                enemigos[i] = null;
+//	            }
+//	        }
+//		}
 		
 		if (p!= null) {
 			if (p.bordeDerecho()>= castillo.bordeIzquierdo(offsetX) && p.bordeIzquierdo()<= castillo.bordeDerecho(offsetX)
@@ -233,15 +250,38 @@ public class Juego extends InterfaceJuego
         	if(enemigos[i] != null  ) {
         		enemigos[i].mover();
         		enemigos[i].dibujar(entorno);
+        		if (enemigos[i].bordeDerecho() < 0 ||
+        			    enemigos[i].bordeIzquierdo() > entorno.ancho()) {
+
+        			    enemigos[i] = null;
+        			}
         	
         	}
 
+        }
+        //reaparicion de enemigos
+        for (int i = 0; i < enemigos.length; i++) {
+
+            if (enemigos[i] == null) {
+
+                int y = 50 + r.nextInt(300);
+                int velocidad = 3;
+
+                if (i % 2 == 0) {
+
+                    enemigos[i] = new Enemigo(-10, y, 30, 30, velocidad);
+
+                } else {
+
+                    enemigos[i] = new Enemigo(810,y, 30, 30, -velocidad);
+                }
+            }
         }
       //gravedad del personaje
 		
         if (p != null) {
             if (!p.colisionaPorAbajo(islas, offsetX)) {
-                p.setY(p.getY() + 2);   // 
+                p.setY(p.getY() + 2); 
             }
         }
         // el personaje sube gradualmente
