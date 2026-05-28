@@ -27,10 +27,17 @@ public class Personaje {
     private boolean enPiso = false;
 
 
+    // gravedad
+    private final double GRAVEDAD = 0.6;
 
-
+    // fuerza salto
+    private final double SALTO = -15;
+    
+    
     // velocidad horizontal
     private final int VELOCIDAD = 5;
+    
+    private int vidas = 3;
 
 
    
@@ -74,15 +81,42 @@ public class Personaje {
 
 
     // SALTO
+    public void saltar() {
+
+        if (enPiso) {
+
+            velocidadY = SALTO;
+
+            enPiso = false;
+        }
+    }
 
 
     
     // GRAVEDAD
+    
+    public void aplicarGravedad() {
+
+        // guardar posición anterior
+        yAnterior = y;
+
+        // aplicar gravedad
+        velocidadY += GRAVEDAD;
+
+        // mover personaje
+        y += (int) velocidadY;
+
+        // asumir que está en el aire
+        enPiso = false;
+    }
+
   
 
 
     
     // COLISION PISO
+    
+    
   
 
     public void tocarPiso(Isla piso) {
@@ -254,6 +288,33 @@ public class Personaje {
 
         return y;
     }
+    
+    // GET VIDAS
+
+    public int getVidas() {
+
+        return vidas;
+    }
+
+    
+    // PERDER VIDA
+
+    public void perderVida() {
+
+        if (vidas > 0) {
+
+            vidas--;
+        }
+    }
+
+    
+    // GANAR VIDA
+
+    public void ganarVida() {
+
+        vidas++;
+    }
+}
 
     
 =======
@@ -427,5 +488,5 @@ public class Personaje {
     }
 
 
-}
-}
+
+
