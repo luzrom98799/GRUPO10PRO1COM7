@@ -2,6 +2,10 @@ package juego;
 
 import java.awt.Color;
 
+
+
+import java.util.Random;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -239,7 +243,7 @@ public class Juego extends InterfaceJuego
         for (int i = 0; i < pisos.length; i++) {
 
             pisos[i].dibujar(entorno);
-        }
+        
 
                 // choque disparo
 
@@ -250,6 +254,8 @@ public class Juego extends InterfaceJuego
                     enemigos[i] = null;
 
                     disparo = null;
+                    
+                }
 
                     // crear item aleatorio
 
@@ -260,25 +266,23 @@ public class Juego extends InterfaceJuego
                                 personaje.getY());
                     }
                 }
-
+    
                 // fuera pantalla
                 disparo = null;
-    }
+    
+  
 
 
 
-
-            }
-        }
 
         // PROYECTIL
-if (disparo != null) {
+           if (disparo != null) {
 
-    disparo.mover();
+              disparo.mover();
 
-    disparo.dibujar(entorno);
+               disparo.dibujar(entorno);
     
-}
+          }
 
 
 
@@ -320,7 +324,9 @@ if (item != null) {
 
         // DIBUJAR PERSONAJE
 
-        personaje.dibujar(entorno);
+        personaje.dibujar(entorno);}
+        
+ 
         
     
 
@@ -403,4 +409,5 @@ if (item != null) {
     {
         Juego juego = new Juego();
     }
+}
     
