@@ -26,5 +26,17 @@ public class Castillo {
         e.dibujarRectangulo(x, y, ancho, alto, 0, Color.GRAY);
     }
 
+    
+    // MOVER IZQUIERDA
 
+    public void moverIzquierda(int valor) {
+
+        x -= valor;
+    }
+
+    public boolean colisiona(Personaje p) {
+
+        return Math.abs(x - p.getX()) < 80 &&
+               Math.abs(y - p.getY()) < 100;
+    }
 }

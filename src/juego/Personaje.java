@@ -7,7 +7,7 @@ import entorno.Entorno;
 public class Personaje {
 
    
-    // VARIABLES
+    // VARIABLES 	DEL PERSONAJE
  
 
     private int x;
@@ -58,7 +58,7 @@ public class Personaje {
     }
 
    
-    // MOVIMIENTO DERECHA
+    // MOVIMIENTO HACIA LA DERECHA
    
 
     public void moverDerecha() {
@@ -67,7 +67,7 @@ public class Personaje {
     }
 
 
-    // MOVIMIENTO IZQUIERDA
+    // MOVIMIENTO HACIA LA IZQUIERDA
    
 
     public void moverIzquierda() {
@@ -176,7 +176,7 @@ public class Personaje {
                 arribaPersonaje < abajoPiso;
 
       
-        // CHOQUE IZQUIERDA
+        // CHOQUE HACIA LA IZQUIERDA
      
         if (colisionY &&
             derechaPersonaje >= izquierdaPiso &&
@@ -187,7 +187,7 @@ public class Personaje {
         }
 
      
-        // CHOQUE DERECHA
+        // CHOQUE HACIA LA DERECHA
       
         if (colisionY &&
             izquierdaPersonaje <= derechaPiso &&
@@ -236,7 +236,7 @@ public class Personaje {
     }
 
    
-    // LIMITAR PANTALLA
+    // LIMITACION DE PANTALLA
     
     public void limitarPantalla(Entorno e) {
 
