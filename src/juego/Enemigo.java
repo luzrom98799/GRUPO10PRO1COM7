@@ -1,4 +1,3 @@
-
 package juego;
 
 import java.awt.Color;
@@ -6,9 +5,6 @@ import java.awt.Color;
 import entorno.Entorno;
 
 public class Enemigo {
-
-    private int x;
-    private int y;
 
     private int x;
     private int y;
@@ -30,7 +26,6 @@ public class Enemigo {
 
         x += velocidad;
     }
-
 
     
     // MOVER IZQUIERDA
@@ -80,5 +75,4 @@ public class Enemigo {
 
         return y;
     }
-
 }

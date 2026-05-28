@@ -5,7 +5,6 @@ import java.awt.Color;
 import entorno.Entorno;
 
 public class Personaje {
-<<<<<<< Updated upstream
 
    
     // VARIABLES
@@ -26,19 +25,16 @@ public class Personaje {
     // detectar si está en piso
     private boolean enPiso = false;
 
-
     // gravedad
     private final double GRAVEDAD = 0.6;
 
     // fuerza salto
     private final double SALTO = -15;
-    
-    
+
     // velocidad horizontal
     private final int VELOCIDAD = 5;
-    
-    private int vidas = 3;
 
+    private int vidas = 3;
 
    
     // CONSTRUCTOR
@@ -81,6 +77,7 @@ public class Personaje {
 
 
     // SALTO
+
     public void saltar() {
 
         if (enPiso) {
@@ -91,10 +88,9 @@ public class Personaje {
         }
     }
 
-
     
     // GRAVEDAD
-    
+  
     public void aplicarGravedad() {
 
         // guardar posición anterior
@@ -110,13 +106,8 @@ public class Personaje {
         enPiso = false;
     }
 
-  
-
-
     
     // COLISION PISO
-    
-    
   
 
     public void tocarPiso(Isla piso) {
@@ -288,6 +279,7 @@ public class Personaje {
 
         return y;
     }
+
     
     // GET VIDAS
 
@@ -315,178 +307,3 @@ public class Personaje {
         vidas++;
     }
 }
-
-    
-=======
-    // VARIABLES
-    private int x;
-    private int y;
-    private int ancho;
-    private int alto;
-    // posición anterior
-    private int yAnterior;
-    // velocidad vertical
-    private int velocidadY;
-    // detectar si está en piso
-    private boolean enPiso = false;
-
-
-    // VARIABLE NUEVA: Guarda el proyectil que dispara el personaje
-
-    // CONSTRUCTOR
-    public Personaje(int x, int y, int ancho, int alto) {
-        this.x = x;
-        this.y = y;
-        this.ancho = ancho;
-        this.alto = alto;
-    }
-
-    // DIBUJAR
-    public void dibujar(Entorno e) {
-        e.dibujarRectangulo(x, y, ancho, alto, 0, Color.WHITE);
-    }
-
-
-    // COLISION PISO
-    public void tocarPiso(Isla piso) {
-        // bordes personaje
-        int izquierdaPersonaje = x - ancho / 2;
-        int derechaPersonaje = x + ancho / 2;
-        int abajoPersonaje = y + alto / 2;
-        // bordes piso
-        int izquierdaPiso = piso.getX() - piso.getAncho() / 2;
-        int derechaPiso = piso.getX() + piso.getAncho() / 2;
-        int arribaPiso = piso.getY() - piso.getAlto() / 2;
-
-        // colision horizontal
-        boolean colisionX = derechaPersonaje >= izquierdaPiso && izquierdaPersonaje <= derechaPiso;
-        // colision vertical
-        boolean colisionY = yAnterior + alto / 2 <= arribaPiso && abajoPersonaje >= arribaPiso;
-
-        // solo si cae
-        if (colisionX && colisionY && velocidadY >= 0) {
-            // apoyar arriba
-            y = arribaPiso - alto / 2;
-            // detener caída
-            velocidadY = 0;
-            // está sobre piso
-            enPiso = true;
-        }
-    }
-
-    // COLISION COSTADOS
-    public void tocarCostado(Isla piso) {
-        // bordes personaje
-        int izquierdaPersonaje = x - ancho / 2;
-        int derechaPersonaje = x + ancho / 2;
-        int arribaPersonaje = y - alto / 2;
-        int abajoPersonaje = y + alto / 2;
-        // bordes piso
-        int izquierdaPiso = piso.getX() - piso.getAncho() / 2;
-        int derechaPiso = piso.getX() + piso.getAncho() / 2;
-        int arribaPiso = piso.getY() - piso.getAlto() / 2;
-        int abajoPiso = piso.getY() + piso.getAlto() / 2;
-
-        // verificar misma altura
-        boolean colisionY = abajoPersonaje > arribaPiso && arribaPersonaje < abajoPiso;
-
-        // CHOQUE IZQUIERDA
-        if (colisionY && derechaPersonaje >= izquierdaPiso && izquierdaPersonaje < izquierdaPiso && x < piso.getX()) {
-            x = izquierdaPiso - ancho / 2;
-        }
-        // CHOQUE DERECHA
-        if (colisionY && izquierdaPersonaje <= derechaPiso && derechaPersonaje > derechaPiso && x > piso.getX()) {
-            x = derechaPiso + ancho / 2;
-        }
-    }
-
-    // COLISION TECHO
-    public void tocarTecho(Isla piso) {
-        // bordes personaje
-        int izquierdaPersonaje = x - ancho / 2;
-        int derechaPersonaje = x + ancho / 2;
-        int arribaPersonaje = y - alto / 2;
-        // bordes piso
-        int izquierdaPiso = piso.getX() - piso.getAncho() / 2;
-        int derechaPiso = piso.getX() + piso.getAncho() / 2;
-        int abajoPiso = piso.getY() + piso.getAlto() / 2;
-
-        // colision horizontal
-        boolean colisionX = derechaPersonaje >= izquierdaPiso && izquierdaPersonaje <= derechaPiso;
-
-        // golpea techo
-        if (colisionX && velocidadY < 0 && arribaPersonaje <= abajoPiso && yAnterior - alto / 2 >= abajoPiso) {
-            // acomodar debajo
-            y = abajoPiso + alto / 2;
-            // detener salto
-            velocidadY = 0;
-        }
-    }
-
-    // LIMITAR PANTALLA
-    public void limitarPantalla(Entorno e) {
-        // izquierda
-        if (x - ancho / 2 < 0) {
-            x = ancho / 2;
-        }
-        // derecha
-        if (x + ancho / 2 > e.ancho()) {
-            x = e.ancho() - ancho / 2;
-        }
-        // abajo pantalla
-        if (y + alto / 2 > e.alto()) {
-            vidas--;
-            x = 400;
-            y = 100;
-            velocidadY = 0;
-        }
-    }
-
-
-
-
-    // MÉTODOS DE BORDES (NUEVOS - Requeridos para colisiones en la clase Juego)
-    public int bordeIzquierdo() {
-        return x - ancho / 2;
-    }
-
-    public int bordeDerecho() {
-        return x + ancho / 2;
-    }
-
-    public int bordeSuperior() {
-        return y - alto / 2;
-    }
-
-    public int bordeInferior() {
-        return y + alto / 2;
-    }
-
-    // GETTERS Y SETTERS ORIGINALES
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getAncho() {
-        return ancho;
-    }
-
-    public int getAlto() {
-        return alto;
-    }
-
-
-
-

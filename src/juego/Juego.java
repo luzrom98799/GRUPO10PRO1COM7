@@ -2,10 +2,6 @@ package juego;
 
 import java.awt.Color;
 
-
-
-import java.util.Random;
-
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -103,27 +99,13 @@ public class Juego extends InterfaceJuego
         // Procesamiento de un instante de tiempo
         // ...
 
-        // GANO EL JUEGO
+        // GANAR
 
-        if (gano) {
 
-            entorno.cambiarFont("Arial",40,Color.GREEN);
 
-            entorno.escribirTexto("AHH GANASTE",300,300);
+        // PERDER
 
-            return;
-        }
 
-        // PERDIO EL JUEGO
-
-        if (perdio) {
-
-            entorno.cambiarFont("Arial",40,Color.BLUE);
-
-            entorno.escribirTexto("UH PERDISTE",300,300);
-
-            return;
-        }
 
         // DIBUJAR FONDO NEGRO
 
@@ -185,7 +167,7 @@ public class Juego extends InterfaceJuego
             }
         }
 
-        // MOVIMIENTO DE PERSONAJE HACIA LA IZQUIERDA
+        // MOVIMIENTO IZQUIERDA
 
         if (entorno.estaPresionada('a') ||
             entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
@@ -193,20 +175,7 @@ public class Juego extends InterfaceJuego
             personaje.moverIzquierda();
         }
 
-        // SALTO DE PERSONAJE
-
-
-
-        // MOVIMIENTO DE PERSONAJE HACIA LA IZQUIERDA
-
-        if (entorno.estaPresionada('a') ||
-            entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-
-            personaje.moverIzquierda();
-        }
-
-        // SALTO DE PERSONAJE
-
+        // SALTO
 
         if (entorno.sePresiono('w') ||
             entorno.sePresiono(entorno.TECLA_ARRIBA)) {
@@ -214,7 +183,7 @@ public class Juego extends InterfaceJuego
             personaje.saltar();
         }
 
-        // DISPARO DE PROYECTIL
+        // DISPARO
 
         if (entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) &&
             disparo == null) {
@@ -226,7 +195,7 @@ public class Juego extends InterfaceJuego
                     entorno.mouseY());
         }
 
-        // GRAVEDAD DE PERSONAJE
+        // GRAVEDAD
 
         personaje.aplicarGravedad();
 
@@ -234,23 +203,15 @@ public class Juego extends InterfaceJuego
 
         for (int i = 0; i < pisos.length; i++) {
 
-            // colision por arriba
+            // colision arriba
 
             personaje.tocarPiso(pisos[i]);
-
 
             // colision costados
 
             personaje.tocarCostado(pisos[i]);
 
             // colision techo
-
-            // colision por costados
-
-            personaje.tocarCostado(pisos[i]);
-
-            // colision por techo
-
 
             personaje.tocarTecho(pisos[i]);
         }
@@ -264,7 +225,30 @@ public class Juego extends InterfaceJuego
         for (int i = 0; i < pisos.length; i++) {
 
             pisos[i].dibujar(entorno);
-        
+        }
+
+        // GENERAR ENEMIGOS
+
+        generarEnemigos();
+
+        // ENEMIGOS
+
+        for (int i = 0; i < enemigos.length; i++) {
+
+            if (enemigos[i] != null) {
+
+                enemigos[i].mover();
+
+                enemigos[i].dibujar(entorno);
+
+                // choque personaje
+
+                if (enemigos[i].colisiona(personaje)) {
+
+                    personaje.perderVida();
+
+                    enemigos[i] = null;
+                }
 
                 // choque disparo
 
@@ -275,8 +259,6 @@ public class Juego extends InterfaceJuego
                     enemigos[i] = null;
 
                     disparo = null;
-                    
-                }
 
                     // crear item aleatorio
 
@@ -287,25 +269,32 @@ public class Juego extends InterfaceJuego
                                 personaje.getY());
                     }
                 }
-    
+
                 // fuera pantalla
-                disparo = null;
-    
-  
 
+                if (enemigos[i] != null &&
+                    enemigos[i].fueraPantalla()) {
 
-
+                    enemigos[i] = null;
+                }
+            }
+        }
 
         // PROYECTIL
-           if (disparo != null) {
 
-              disparo.mover();
+        if (disparo != null) {
 
-               disparo.dibujar(entorno);
-    
-          }
+            disparo.mover();
 
+            disparo.dibujar(entorno);
 
+            // fuera pantalla
+
+            if (disparo.fueraPantalla()) {
+
+                disparo = null;
+            }
+        }
 
         // CASTILLO
 
@@ -313,45 +302,16 @@ public class Juego extends InterfaceJuego
 
         // VIDAS
 
-for (int i = 0; i < personaje.getVidas(); i++) {
-
-    entorno.dibujarCirculo(
-            30 + (i * 40),
-            30,
-            15,
-            Color.RED);
-}
-
-if (personaje.getVidas() <= 0) {
-
-    perdio = true;
-}
-
-// ITEM
-
-if (item != null) {
-
-    item.dibujar(entorno);
-
-    if (item.colisiona(personaje)) {
-
-        personaje.ganarVida();
-
-        item = null;
-    }
-}
 
 
+        // ITEM
 
 
 
         // DIBUJAR PERSONAJE
 
-        personaje.dibujar(entorno);}
-        
- 
-        
-    
+        personaje.dibujar(entorno);
+    }
 
     // GENERAR ENEMIGOS
 
@@ -382,7 +342,7 @@ if (item != null) {
                     int pisoRandom =
                             (int)(Math.random() * pisos.length);
 
-                    Piso piso = pisos[pisoRandom];
+                    Isla piso = pisos[pisoRandom];
 
                     // posición aleatoria sobre isla
 
@@ -425,13 +385,10 @@ if (item != null) {
         }
     }
 
-
-
     @SuppressWarnings("unused")
 
     public static void main(String[] args)
     {
         Juego juego = new Juego();
     }
-}
-    
+}  
