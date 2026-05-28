@@ -22,4 +22,8 @@ public class Dibujar {
                 angulo,
                 color);
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

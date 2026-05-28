@@ -167,6 +167,7 @@ public class Juego extends InterfaceJuego
 
                 // mover disparo
 
+<<<<<<< Updated upstream
                 if (disparo != null) {
 
                     disparo.moverIzquierda(5);
@@ -191,6 +192,19 @@ public class Juego extends InterfaceJuego
 
         // SALTO DE PERSONAJE
 
+=======
+
+        // MOVIMIENTO DE PERSONAJE HACIA LA IZQUIERDA
+
+        if (entorno.estaPresionada('a') ||
+            entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+
+            personaje.moverIzquierda();
+        }
+
+        // SALTO DE PERSONAJE
+
+>>>>>>> Stashed changes
         if (entorno.sePresiono('w') ||
             entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 
@@ -221,11 +235,19 @@ public class Juego extends InterfaceJuego
 
             personaje.tocarPiso(pisos[i]);
 
+<<<<<<< Updated upstream
             // colision costados
 
             personaje.tocarCostado(pisos[i]);
 
             // colision techo
+=======
+            // colision por costados
+
+            personaje.tocarCostado(pisos[i]);
+
+            // colision por techo
+>>>>>>> Stashed changes
 
             personaje.tocarTecho(pisos[i]);
         }
@@ -241,6 +263,7 @@ public class Juego extends InterfaceJuego
             pisos[i].dibujar(entorno);
         }
 
+<<<<<<< Updated upstream
                 // choque disparo
 
                 if (enemigos[i] != null &&
@@ -276,6 +299,9 @@ public class Juego extends InterfaceJuego
 
 
         // VIDAS
+=======
+
+>>>>>>> Stashed changes
 
 
         // DIBUJAR PERSONAJE
@@ -283,7 +309,10 @@ public class Juego extends InterfaceJuego
         personaje.dibujar(entorno);
     }
 
+<<<<<<< Updated upstream
     // GENERAR ENEMIGOS
+=======
+>>>>>>> Stashed changes
 
 
     @SuppressWarnings("unused")
