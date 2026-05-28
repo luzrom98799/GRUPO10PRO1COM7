@@ -262,12 +262,23 @@ public class Juego extends InterfaceJuego
                 }
 
                 // fuera pantalla
+                disparo = null;
+    }
+
+
 
 
             }
         }
 
         // PROYECTIL
+if (disparo != null) {
+
+    disparo.mover();
+
+    disparo.dibujar(entorno);
+    
+}
 
 
 
@@ -276,14 +287,114 @@ public class Juego extends InterfaceJuego
 
 
         // VIDAS
+for (int i = 0; i < personaje.getVidas(); i++) {
+
+    entorno.dibujarCirculo(
+            30 + (i * 40),
+            30,
+            15,
+            Color.RED);
+}
+
+if (personaje.getVidas() <= 0) {
+
+    perdio = true;
+}
+
+// ITEM
+
+if (item != null) {
+
+    item.dibujar(entorno);
+
+    if (item.colisiona(personaje)) {
+
+        personaje.ganarVida();
+
+        item = null;
+    }
+}
+
+
 
 
         // DIBUJAR PERSONAJE
 
         personaje.dibujar(entorno);
-    }
+        
+    
 
     // GENERAR ENEMIGOS
+    private void generarEnemigos()
+    {
+        int vivos = 0;
+
+        // contar enemigos vivos
+
+        for (int i = 0; i < enemigos.length; i++) {
+
+            if (enemigos[i] != null) {
+
+                vivos++;
+            }
+        }
+
+        // mantener enemigos vivos
+
+        if (vivos < 5) {
+
+            for (int i = 0; i < enemigos.length; i++) {
+
+                if (enemigos[i] == null) {
+
+                    // elegir isla aleatoria
+
+                    int pisoRandom =
+                            (int)(Math.random() * pisos.length);
+
+                    Piso piso = pisos[pisoRandom];
+
+                    // posición aleatoria sobre isla
+
+                    int xEnemigo =
+                            piso.getX()
+                            - piso.getAncho() / 2
+                            + (int)(Math.random() * piso.getAncho());
+
+                    // arriba del piso
+
+                    int yEnemigo =
+                            piso.getY()
+                            - piso.getAlto() / 2
+                            - 20;
+
+                    // dirección aleatoria
+
+                    int velocidad;
+
+                    if (Math.random() < 0.5) {
+
+                        velocidad = 2;
+
+                    } else {
+
+                        velocidad = -2;
+                    }
+
+                    // crear enemigo
+
+                    enemigos[i] =
+                            new Enemigo(
+                                    xEnemigo,
+                                    yEnemigo,
+                                    velocidad);
+
+                    break;
+                }
+            }
+        }
+    }
+    
 
 
     @SuppressWarnings("unused")
@@ -292,4 +403,4 @@ public class Juego extends InterfaceJuego
     {
         Juego juego = new Juego();
     }
-}
+    
