@@ -1,77 +1,77 @@
 package juego;
+
 import java.awt.Color;
+
 import entorno.Entorno;
+
 public class Isla {
-	private int x;
-	private int y;
-	private int ancho;
-	private int alto;
-	
-	public Isla(int x, int y, int ancho, int alto) {
-		this.x = x;
-		this.y = y;
-		this.ancho = ancho;
-		this.alto = alto;
-	}
-	
-	public void dibujar(Entorno e) {
-		e.dibujarRectangulo(x, y, ancho, alto, 0, Color.gray);
-	}
-	public void dibujar(Entorno e, int offsetX) {
-		e.dibujarRectangulo(x-offsetX, y, ancho, alto, 0, Color.gray);
-	}
-	
-	
-	
-	public int bordeDerecho(int offsetX) {
-		return (this.x+this.ancho/2)-offsetX;
-	}
-	public int bordeIzquierdo(int offsetX) {
-		return (this.x-this.ancho/2)- offsetX;
-	}
-	public int bordeInferior() {
-		return this.y+this.alto/2;
-	}
-	public int bordeSuperior() {
-		return this.y-this.alto/2;
-	}
-	
-	
 
-	public int getX() {
-		return x;
-	}
+    
+    // VARIABLES
 
-	public void setX(int x) {
-		this.x = x;
-	}
+    private int x;
+    private int y;
 
-	public int getY() {
-		return y;
-	}
+    private int ancho;
+    private int alto;
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    
+    // CONSTRUCTOR
 
-	public int getAncho() {
-		return ancho;
-	}
+    public Isla(int x, int y, int ancho, int alto) {
 
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
+        this.x = x;
+        this.y = y;
 
-	public int getAlto() {
-		return alto;
-	}
+        this.ancho = ancho;
+        this.alto = alto;
+    }
 
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-	
-	
-	
-	
+    
+    // DIBUJAR
 
+    public void dibujar(Entorno e) {
+
+        e.dibujarRectangulo(x, y, ancho, alto, 0, Color.WHITE);
+    }
+
+    
+    // MOVER IZQUIERDA
+
+    public void moverIzquierda(int valor) {
+
+        x -= valor;
+    }
+
+    
+    // GET X
+
+    public int getX() {
+
+        return x;
+    }
+
+    
+    // GET Y
+
+    public int getY() {
+
+        return y;
+    }
+
+    
+    // GET ANCHO
+
+    public int getAncho() {
+
+        return ancho;
+    }
+
+    
+    // GET ALTO
+
+    public int getAlto() {
+
+        return alto;
+    }
 }
