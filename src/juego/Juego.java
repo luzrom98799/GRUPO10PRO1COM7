@@ -1,264 +1,285 @@
 package juego;
-
 import java.awt.Color;
 import java.util.Random;
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
-public class Juego extends InterfaceJuego {
-    private Entorno entorno;
-    private Personaje personaje;
-    private Isla[] islas;
-    private Enemigo[] enemigos;
-    private Proyectil disparo;
-    private Castillo castillo;
-    private Item item;
-    private boolean gano = false;
-    private boolean perdio = false;
+public class Juego extends InterfaceJuego
+{
+	// El objeto Entorno que controla el tiempo y otros
+	private Entorno entorno;
+	private Personaje p;
+	private Isla [] islas;
+	private Enemigo [] enemigos;
+	private int offsetX = 0;
+	private int salto = 0;
+	private Castillo castillo;
+	private boolean gano;
+	private Vida[]vidas;
+	private int cantidadVidas;
+	private boolean perdio;
+	
 
-    Juego() {
-        this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
-        personaje = new Personaje(400, 300, 30, 50);
-        
-        // Inicializa el mapa de 3 niveles
-        rellenarIslas();
-        
-        // Lista para controlar exactamente 4 enemigos 
-        enemigos = new Enemigo[4];
-        
-        castillo = new Castillo(5300, 470, 120, 180); 
-        this.entorno.iniciar();
-    }
+	
+	// Variables y métodos propios de cada grupo
+	// ...
+	
+	Juego()
+	{
+		// Inicializa el objeto entorno
+		this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
+		// Inicializar para el juego
+		// ...
+		p = new Personaje(400,300,20,50);
+		
+	    
+	    islas = new Isla[50]; 
+	    
+	    // RANDOM
+	    Random r = new Random();
+	    
 
-    public void tick() {
-        if (gano) {
-            entorno.cambiarFont("Arial", 40, Color.GREEN);
-            entorno.escribirTexto("GANASTE", 300, 300);
-            return;
-        }
-
-        if (perdio) {
-            entorno.cambiarFont("Arial", 40, Color.RED);
-            entorno.escribirTexto("PERDISTE", 300, 300);
-            return;
-        }
-
-        entorno.dibujarRectangulo(entorno.ancho() / 2, entorno.alto() / 2, entorno.ancho(), entorno.alto(), 0, Color.BLACK);
-
-        // MOVIMIENTO DE LA PRINCESA Y DE ESCENARIO
-        if (entorno.estaPresionada('d') || entorno.estaPresionada(entorno.TECLA_DERECHA)) {
-            if (personaje.getX() < 400) {
-                personaje.moverDerecha();
-            } else {
-                //hacia la izquierda
-                for (int i = 0; i < islas.length; i++) {
-                    if (islas[i] != null) {
-                        islas[i].moverIzquierda(5);
-                    }
-                }
-                castillo.moverIzquierda(5);
-                
-                // ENEMIGOS
-
-                if (disparo != null) { disparo.moverIzquierda(5); }
-                if (item != null) { item.moverIzquierda(5); }
-            }
-            
-                 //enemigos a la izquierda
-            
-//            for (int i=0; i<enemigos.length;i++) {
-//            	if (enemigos[i] != null ) {
-//            		enemigos[i].moverIzquierda(3);
-//            	
-//            	}
-//            }
-        }
-
-        if (entorno.estaPresionada('a') || entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-            personaje.moverIzquierda();
-        }
-
-        if (entorno.sePresiono('w') || entorno.sePresiono(entorno.TECLA_ARRIBA)) {
-            personaje.saltar();
-        }
-
-        if (entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) && disparo == null) {
-            disparo = new Proyectil(personaje.getX(), personaje.getY(), entorno.mouseX(), entorno.mouseY());
-        }
-
-        personaje.aplicarGravedad();
-
-        // COLISIONES PERSONAJE-ISLAS
-        for (int i = 0; i < islas.length; i++) {
-            if (islas[i] != null) {
-                personaje.tocarPiso(islas[i]);
-                personaje.tocarCostado(islas[i]);
-                personaje.tocarTecho(islas[i]);
-            }
-        }
-
-        personaje.limitarPantalla(entorno);
-
-        // DIBUJAR ISLAS
-        for (int i = 0; i < islas.length; i++) {
-            if (islas[i] != null) {
-                islas[i].dibujar(entorno);
-            }
-        }
-
-        castillo.dibujar(entorno);
-        if (castillo.colisiona(personaje)) {
-            gano = true;
-        }
-
-
-        generarEnemigos();
-
-        for (int i = 0; i < enemigos.length; i++) {
-            if (enemigos[i] != null) {
-                // Se mueven a su ritmo constante (2 o -2) sin importar lo que haga el fondo
-                enemigos[i].mover(); 
-                enemigos[i].dibujar(entorno);
-
-                // Control de bordes estricto de pantalla (Bordes -40 y 840)
-                if (enemigos[i].getX() < -40 || enemigos[i].getX() > 840) {
-                    enemigos[i] = null; // Se vacía el casillero y el generador crea otro al instante
-                }
-
-                // Choque con el personaje
-                if (enemigos[i] != null && enemigos[i].colisiona(personaje)) {
-                	
-                	personaje.perderVida();
-                	personaje=null;
-                    personaje= new Personaje(400, 300, 30, 50);
-                    enemigos[i] = null;
-                    
-                    
-                }
-
-                // Choque con el disparo
-                if (enemigos[i] != null && disparo != null && disparo.colisiona(enemigos[i])) {
-                    enemigos[i] = null;
-                    disparo = null;
-                    if (Math.random() < 0.3) {
-                        item = new Item(personaje.getX(), personaje.getY());
-                    }
-                }
-            }
-        }
-
-        // PROYECTIL, VIDAS Y ÍTEMS
-        if (disparo != null) {
-            disparo.mover();
-            disparo.dibujar(entorno);
-            if (disparo.fueraPantalla()) {
-                disparo = null;
-            }
-        }
-
-        for (int i = 0; i < personaje.getVidas(); i++) {
-            entorno.dibujarCirculo(30 + (i * 40), 30, 15, Color.RED);
-        }
-        if (personaje.getVidas() <= 0) {
-            perdio = true;
-        }
-
-        if (item != null) {
-            item.dibujar(entorno);
-            if (item.colisiona(personaje)) {
-                personaje.ganarVida();
-                item = null;
-            }
-        }
-
-        personaje.dibujar(entorno);
-    }
-
-    // RELLENAR ISLAS (3 Niveles de igual longitud)
-    private void rellenarIslas() {
-        this.islas = new Isla[88]; 
-        Random r = new Random();
-//        int xInicial = 50;
-//        int anchoIsla = 140;
-//        int separacionColumnas = 190;
-//        for (int i = 0; i < 30; i++) {
-//            int xBase = xInicial + (i * separacionColumnas);
-//            this.islas[i] = new Isla(xBase, 550, anchoIsla, 15); // Nivel 1: Suelo estático
-//            
-//            int xFlotante = xBase + r.nextInt(700);
-//            int yFlotante;
-//            if (i % 2 == 0) {
-//                yFlotante = 380; // Nivel 2
-//            } else {
-//                yFlotante = 210; // Nivel 3
-//            }
-//            this.islas[30 + i] = new Isla(xFlotante, yFlotante, 100, 15);
-//        }
-        
-        
-        for (int i = 0; i < islas.length; i++) {
+	    for (int i = 0; i < islas.length; i++) {
 	        int columna = i / 3;   
 	        int fila = i % 3;      
 
 	        int x = 100 + (columna * 180);
 
 	        if (fila == 0) {   
-	            islas[i] = new Isla(x, 650, 140, 200);
+	            islas[i] = new Isla(x, 500, 140, 200);
 
 	        } else if (fila == 1) {   
-	            int y = 400;  
-	            islas[i] = new Isla(x + r.nextInt(200), y, 100, 15);
+	            int y = 300 + r.nextInt(80);  
+	            islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
 
 	        } else {   
-	            int y = 250;
-	            islas[i] = new Isla(x + r.nextInt(400), y, 90, 15);
+	            int y = 160 + r.nextInt(80);
+	            islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
 	        }
 	    }
+	
+	    
+	    
+	    enemigos= new Enemigo[120];
+	    for(int i=0; i<enemigos.length; i++) {
+	    	int y= 50 + r.nextInt(300);
+	    	int velocidad= 2+r.nextInt(2);
+	    	
+	    	if(i%2==0) {
+	    		int x = -50-(i*350);
+	    		enemigos[i]=new Enemigo(x, y, 30, 30, velocidad);
+	    	}else {
+	    		int x= 850 +(i*350);
+	    		enemigos[i]= new Enemigo(x,y,30,30,-velocidad);
+	    		
+	    	}
+	    		
+	    }
+	    
+	    castillo= new Castillo(3005,300,120,200);
+	    gano=false;
+	    
+	    cantidadVidas=8;
+	    vidas= new Vida[cantidadVidas];
+	    for (int i =0; i<vidas.length; i++) {
+	    	vidas[i]= new Vida(30+(i*25),30,15);
+	    }
+	    
+	    perdio= false;
+	    	
+	    
+	   
+			
+		// Inicia
+		this.entorno.iniciar(); 
     }
+	/**
+	 * Durante el juego, el método tick() será ejecutado en cada instante y 
+	 * por lo tanto es el método más importante de esta clase. Aquí se debe 
+	 * actualizar el estado interno del juego para simular el paso del tiempo 
+	 * (ver el enunciado del TP para mayor detalle).
+	 */
+	public void tick()
+	{
+		if(perdio) {
+			entorno.escribirTexto("perdiste el juego wey", 350,300);
+			return;
+		}
+		
+		if(gano) {
+			entorno.escribirTexto("ganastee!!", 350, 300);
+			return;
+		}
+		// Procesamiento de un instante de tiempo
+		// ...
+		
+		//dibujado
+		p.dibujar(entorno);
+		for (int i=0;i< cantidadVidas; i++) {
+			if (vidas[i]!=null) {
+				vidas[i].dibujar(entorno);
+			}
+		}
+		if(p.getDisparo()!=null) {
+			p.getDisparo().dibujar(entorno);			
+		}
+		
+		
+		
+		
+		//capturar presion de teclas
+		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && p!=null && p.getX()-p.getAncho()/2>0) {
+			if(p.colisionaPorIzquierda(islas, offsetX)==false) {
+				p.moverIzquierda();							
+			}
+		}
+		if(entorno.estaPresionada(entorno.TECLA_DERECHA) && p!=null && p.getX()+ p.getAncho()/2< entorno.ancho() ) {
+			if(p.colisionaPorDerecha(islas, offsetX)==false) {
+				int ultimaIsla = islas[islas.length-1].getX();
+				
+		        if (p.getX() < 400) {
+		            p.moverDerecha();
+		        } else {
+		            if (ultimaIsla - offsetX > 750) {
+		                offsetX += 5;
+		            } else if (p.getX() + p.getAncho()/2 < entorno.ancho()) {
+		                p.moverDerecha();
+		            }
+		        }
+		    }
+		}
+		
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA) && p.colisionaPorAbajo(islas, offsetX) && salto == 0) {
 
-    //GENERAR ENEMIGOS VOLADORES fija de 4)
-    private void generarEnemigos() {
-        int cantidadMaxima = 4; 
-        int vivos = 0;
-        for (int i = 0; i < enemigos.length; i++) {
-            if (enemigos[i] != null) vivos++;
-        }
-        if (vivos < cantidadMaxima) {
-            for (int i = 0; i < enemigos.length; i++) {
-                if (enemigos[i] == null) {
-                    int yEnemigo;
-                    // Pasillos libres donde físicamente no existen islas fijas
-                    if (Math.random() < 0.6) {
-                        yEnemigo = 60 + (int)(Math.random() * 140); // Pasillo alto (60 a 200)
-                    } else {
-                        yEnemigo = 450 + (int)(Math.random() * 30); // Pasillo bajo (450 a 480)
-                    }
-                    int xEnemigo;
-                    int velocidad;
-                    if (Math.random() < 0.5) {
-                        xEnemigo = -30;
-                        velocidad = 2;
-                    } else {
-                        xEnemigo = 830;
-                        velocidad = -2;
-                    }
-                    enemigos[i] = new Enemigo(xEnemigo, yEnemigo, velocidad);
-                    break;
-                }
+			    salto = 30;
+			}
+		
+
+		
+		if(entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) && p.getDisparo()==null) {
+			p.disparar(entorno.mouseX(),entorno.mouseY());
+		}
+		
+		
+		
+		//movimiento del Proyectil
+		if(p.getDisparo()!=null) {
+			p.getDisparo().mover();
+		}
+		
+		
+		//el proyectil se vuelve null si sale del entorno	
+		if(p.getDisparo()!=null && p.getDisparo().getX()<0 || p.getDisparo()!=null &&  p.getDisparo().getY()<0 ||
+			p.getDisparo()!=null && p.getDisparo().getX()>entorno.ancho() || p.getDisparo()!=null &&  p.getDisparo().getY()>entorno.alto()	)
+		
+		
+			{
+			p.setDisparo(null);
+			}
+	
+		
+		//colision entre el proyectil y los enemigos
+		for (int i = 0; i < enemigos.length; i++) {
+			   if (enemigos[i] != null && p.getDisparo() != null) {
+			       if (p.getDisparo().colisionaConObstaculo(enemigos[i])) {
+			           enemigos[i] = null; 
+			           p.setDisparo(null);
+			             
+			        }
+			    }
+			}
+		//colision entre personaje y enemigo
+		for (int i = 0; i < enemigos.length; i++) {
+			if (enemigos[i] != null && p!=null ) {
+				if( p.bordeDerecho() >= enemigos[i].bordeIzquierdo()  &&  p.bordeIzquierdo()<=enemigos[i].bordeDerecho() 
+						&&  p.bordeInferior()>=enemigos[i].bordeSuperior() && p.bordeSuperior()<=enemigos[i].bordeInferior()) {
+					 
+					enemigos[i] = null;
+					p.recibirDaño(1);
+					cantidadVidas--;
+					p=null;
+					p= new Personaje(400,300,20,50);
+					
+				
+					 
+					
+				}
+			}
+			
+		}
+		
+		if (p!= null) {
+			if (p.bordeDerecho()>= castillo.bordeIzquierdo(offsetX) && p.bordeIzquierdo()<= castillo.bordeDerecho(offsetX)
+					&& p.bordeInferior()>=castillo.bordeSuperior()&& p.bordeSuperior()<= castillo.bordeInferior()) {
+				gano=true;
+			}
+		}
+		
+		
+		
+		
+        // Dibujado recorriendo el arreglo islas
+        for (int i = 0; i < islas.length; i++) {
+            if (islas[i] != null) {
+                islas[i].dibujar(entorno, offsetX);
             }
         }
         
+        castillo.dibujar(entorno, offsetX);
         
         
-        
-    }
+        //enemigo
+        for(int i=0; i<enemigos.length; i++) {
+        	if(enemigos[i] != null  ) {
+        		enemigos[i].mover();
+        		enemigos[i].dibujar(entorno);
+        	
+        	}
 
-    public static void main(String[] args) {
-        @SuppressWarnings("unused")
+        }
+      //gravedad del personaje
+		
+        if (p != null) {
+            if (!p.colisionaPorAbajo(islas, offsetX)) {
+                p.setY(p.getY() + 2);   // 
+            }
+        }
+        // el personaje sube gradualmente
+        if (salto > 0) {
+            if (!p.colisionaPorArriba(islas, offsetX)) {
+                p.setY(p.getY() - 6);
+                salto--;
+            } else {
+                salto = 0;
+            }
+        }
+      //una vez que el personaje cae vuelve al centro de la pantalla	
+     if (p!=null && p.getY()>entorno.alto()) {
+    	 cantidadVidas--;
+    	 p=null;
+    	 p= new Personaje(400,300,20,50);
+    	 	 
+    	 
+     }
+     if (cantidadVidas<=0) {
+    	 perdio=true;
+     }
+     if (gano) {
+    	 entorno.escribirTexto("ganaste el juego", 350, 300);
+    	 
+     }
+     if (perdio) {
+    	 entorno.escribirTexto("perdiste el juego", 350, 300);
+     }
+      		
+	}
+
+	@SuppressWarnings("unused")
+	public static void main(String[] args)
+	{
 		Juego juego = new Juego();
-    }
+	}
+    public Isla[] getIslas() { return islas; }
+    public void setIslas(Isla[] islas) { this.islas = islas; }
+
 }
-
-
-
-

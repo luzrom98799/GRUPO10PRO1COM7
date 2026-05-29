@@ -1,4 +1,4 @@
-package juego;
+ package juego;
 
 import java.awt.Color;
 
@@ -69,7 +69,7 @@ public class Proyectil {
         e.dibujarCirculo(
                 (int)x,
                 (int)y,
-                10,
+                8,
                 Color.YELLOW);
     }
 
@@ -93,4 +93,3 @@ public class Proyectil {
                y > 600;
     }
 }
-
