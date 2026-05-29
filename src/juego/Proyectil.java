@@ -1,95 +1,62 @@
- package juego;
+package juego;
 
 import java.awt.Color;
-
 import entorno.Entorno;
 
 public class Proyectil {
-
-
     private double x;
     private double y;
+    private int diametro;
+    private double deltaX;
+    private double deltaY;
+    private double velocidad;
 
-    private double dx;
-    private double dy;
-
-    
-    // CONSTRUCTOR
-
-    public Proyectil(
-            int xInicial,
-            int yInicial,
-            int mouseX,
-            int mouseY) {
-
-        x = xInicial;
-        y = yInicial;
-
-        double distancia = Math.sqrt(
-                Math.pow(mouseX - x, 2) +
-                Math.pow(mouseY - y, 2));
-
+    // Constructor que coincide exactamente con el "new Proyectil" de Personaje
+    public Proyectil(int x, int y, int diametro, double deltaX, double deltaY) {
+        this.x = x;
+        this.y = y;
+        this.diametro = diametro;
         
-        // evitar división por 0
-
-        if (distancia == 0) {
-
-            distancia = 1;
+        // Calculamos la dirección del disparo hacia donde se hizo clic
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        this.velocidad = 8; // Velocidad de la bala
+        
+        if (distancia != 0) {
+            this.deltaX = (deltaX / distancia) * velocidad;
+            this.deltaY = (deltaY / distancia) * velocidad;
+        } else {
+            this.deltaX = velocidad; // Por defecto dispara a la derecha si da 0
+            this.deltaY = 0;
         }
-
-        
-        // velocidad proyectil
-
-        dx = (mouseX - x) / distancia * 8;
-        dy = (mouseY - y) / distancia * 8;
     }
 
-    
-    // MOVER
-
+    // Método para mover el proyectil en cada frame
     public void mover() {
-
-        x += dx;
-        y += dy;
+        this.x += this.deltaX;
+        this.y += this.deltaY;
     }
 
-    
-    // MOVER IZQUIERDA
-
-    public void moverIzquierda(int valor) {
-
-        x -= valor;
-    }
-
-    
-    // DIBUJAR
-
+    // Método para dibujar la bala
     public void dibujar(Entorno e) {
-
-        e.dibujarCirculo(
-                (int)x,
-                (int)y,
-                8,
-                Color.YELLOW);
+        e.dibujarCirculo((int)this.x, (int)this.y, this.diametro, Color.YELLOW);
     }
 
-    
-    // COLISION ENEMIGO
-
-    public boolean colisiona(Enemigo enemigo) {
-
-        return Math.abs(x - enemigo.getX()) < 20 &&
-               Math.abs(y - enemigo.getY()) < 20;
+    // Método de colisión con enemigos 
+    public boolean colisionaConObstaculo(Enemigo enemigo) {
+        if (enemigo == null) {
+            return false;
+        }
+        // Caja de colisión simple basada en distancias entre centros
+        return Math.abs(this.x - enemigo.getX()) < (this.diametro / 2 + enemigo.getAncho() / 2) &&
+               Math.abs(this.y - enemigo.getY()) < (this.diametro / 2 + enemigo.getAlto() / 2);
     }
 
-    
-    // FUERA PANTALLA
+    // Getters y Setters necesarios para Juego.java
+    public int getX() {
+        return (int) this.x;
+    }
 
-    public boolean fueraPantalla() {
-
-        return x < 0 ||
-               x > 800 ||
-               y < 0 ||
-               y > 600;
+    public int getY() {
+        return (int) this.y;
     }
 }

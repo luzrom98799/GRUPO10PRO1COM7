@@ -1,78 +1,100 @@
 package juego;
 
 import java.awt.Color;
-
 import entorno.Entorno;
 
 public class Enemigo {
-
     private int x;
     private int y;
-
+    private int ancho;
+    private int alto;
     private int velocidad;
 
-    public Enemigo(int x, int y, int velocidad) {
-
+    // Constructor corregido para aceptar el ancho y alto que le pasás en Juego.java
+    public Enemigo(int x, int y, int ancho, int alto, int velocidad) {
         this.x = x;
         this.y = y;
-
+        this.ancho = ancho;
+        this.alto = alto;
         this.velocidad = velocidad;
     }
 
-    
-    // MOVER
-
-    public void mover() {
-
-        x += velocidad;
+    // DIBUJAR: Centrado usando sus coordenadas
+    public void dibujar(Entorno e) {
+        // Usamos dibujarCirculo manteniendo el diámetro basado en su ancho/alto
+        e.dibujarCirculo(this.x, this.y, this.ancho, Color.RED);
     }
 
-    
-    // MOVER IZQUIERDA
+    // MOVER: Se desplaza según la velocidad asignada (positiva o negativa)
+    public void mover() {
+        this.x = this.x + this.velocidad;
+    }
 
     public void moverIzquierda(int valor) {
-
-        x -= valor;
+        this.x = this.x - valor;
     }
 
-    
-    // DIBUJAR
-
-    public void dibujar(Entorno e) {
-
-        e.dibujarCirculo(x, y, 20, Color.RED);
-    }
-
-    
-    // COLISION PERSONAJE
-
-    public boolean colisiona(Personaje p) {
-
-        return Math.abs(x - p.getX()) < 30 &&
-               Math.abs(y - p.getY()) < 40;
-    }
-
-    
-    // FUERA PANTALLA
-
+    // FUERA PANTALLA: Valida si el enemigo se pasó de los límites laterales
     public boolean fueraPantalla() {
-
-        return x < -100 || x > 900;
+        return this.x < -100 || this.x > 900;
     }
 
-    
-    // GET X
+    // MÉTODOS DE BORDES: Iguales a los de Personaje.java para resolver los errores de colisión
+    public int bordeDerecho() { 
+        return this.x + this.ancho / 2; 
+    }
 
+    public int bordeIzquierdo() { 
+        return this.x - this.ancho / 2; 
+    }
+
+    public int bordeInferior() { 
+        return this.y + this.alto / 2; 
+    }
+
+    public int bordeSuperior() { 
+        return this.y - this.alto / 2; 
+    }
+
+    // GETTERS Y SETTERS
     public int getX() {
-
         return x;
     }
 
-    
-    // GET Y
+    public void setX(int x) {
+        // Permite mover al enemigo si es necesario desde el juego
+        this.x = x; 
+    }
 
     public int getY() {
-
         return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
     }
 }
