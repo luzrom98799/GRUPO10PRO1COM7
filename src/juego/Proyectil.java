@@ -69,7 +69,7 @@ public class Proyectil {
         e.dibujarCirculo(
                 (int)x,
                 (int)y,
-                8,
+                10,
                 Color.YELLOW);
     }
 

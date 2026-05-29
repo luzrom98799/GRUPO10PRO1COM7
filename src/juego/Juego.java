@@ -18,7 +18,7 @@ public class Juego extends InterfaceJuego {
 
     Juego() {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
-        personaje = new Personaje(400, 100, 30, 50);
+        personaje = new Personaje(400, 300, 30, 50);
         
         // Inicializa el mapa de 3 niveles
         rellenarIslas();
@@ -63,6 +63,15 @@ public class Juego extends InterfaceJuego {
                 if (disparo != null) { disparo.moverIzquierda(5); }
                 if (item != null) { item.moverIzquierda(5); }
             }
+            
+                 //enemigos a la izquierda
+            
+//            for (int i=0; i<enemigos.length;i++) {
+//            	if (enemigos[i] != null ) {
+//            		enemigos[i].moverIzquierda(3);
+//            	
+//            	}
+//            }
         }
 
         if (entorno.estaPresionada('a') || entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
@@ -118,8 +127,13 @@ public class Juego extends InterfaceJuego {
 
                 // Choque con el personaje
                 if (enemigos[i] != null && enemigos[i].colisiona(personaje)) {
-                    personaje.perderVida();
+                	
+                	personaje.perderVida();
+                	personaje=null;
+                    personaje= new Personaje(400, 300, 30, 50);
                     enemigos[i] = null;
+                    
+                    
                 }
 
                 // Choque con el disparo
@@ -162,24 +176,44 @@ public class Juego extends InterfaceJuego {
 
     // RELLENAR ISLAS (3 Niveles de igual longitud)
     private void rellenarIslas() {
-        this.islas = new Isla[60]; 
+        this.islas = new Isla[88]; 
         Random r = new Random();
-        int xInicial = 50;
-        int anchoIsla = 140;
-        int separacionColumnas = 180;
-        for (int i = 0; i < 30; i++) {
-            int xBase = xInicial + (i * separacionColumnas);
-            this.islas[i] = new Isla(xBase, 550, anchoIsla, 15); // Nivel 1: Suelo estático
-            
-            int xFlotante = xBase + r.nextInt(40);
-            int yFlotante;
-            if (i % 2 == 0) {
-                yFlotante = 380; // Nivel 2
-            } else {
-                yFlotante = 210; // Nivel 3
-            }
-            this.islas[30 + i] = new Isla(xFlotante, yFlotante, 100, 15);
-        }
+//        int xInicial = 50;
+//        int anchoIsla = 140;
+//        int separacionColumnas = 190;
+//        for (int i = 0; i < 30; i++) {
+//            int xBase = xInicial + (i * separacionColumnas);
+//            this.islas[i] = new Isla(xBase, 550, anchoIsla, 15); // Nivel 1: Suelo estático
+//            
+//            int xFlotante = xBase + r.nextInt(700);
+//            int yFlotante;
+//            if (i % 2 == 0) {
+//                yFlotante = 380; // Nivel 2
+//            } else {
+//                yFlotante = 210; // Nivel 3
+//            }
+//            this.islas[30 + i] = new Isla(xFlotante, yFlotante, 100, 15);
+//        }
+        
+        
+        for (int i = 0; i < islas.length; i++) {
+	        int columna = i / 3;   
+	        int fila = i % 3;      
+
+	        int x = 100 + (columna * 180);
+
+	        if (fila == 0) {   
+	            islas[i] = new Isla(x, 650, 140, 200);
+
+	        } else if (fila == 1) {   
+	            int y = 400;  
+	            islas[i] = new Isla(x + r.nextInt(200), y, 100, 15);
+
+	        } else {   
+	            int y = 250;
+	            islas[i] = new Isla(x + r.nextInt(400), y, 90, 15);
+	        }
+	    }
     }
 
     //GENERAR ENEMIGOS VOLADORES fija de 4)
@@ -213,10 +247,15 @@ public class Juego extends InterfaceJuego {
                 }
             }
         }
+        
+        
+        
+        
     }
 
     public static void main(String[] args) {
-        Juego juego = new Juego();
+        @SuppressWarnings("unused")
+		Juego juego = new Juego();
     }
 }
 
