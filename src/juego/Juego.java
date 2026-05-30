@@ -1,7 +1,7 @@
 package juego;
 
-import java.awt.Color;
 import java.util.Random;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -30,6 +30,9 @@ public class Juego extends InterfaceJuego {
         
         castillo = new Castillo(3005, 300, 120, 200);
         this.entorno.iniciar();
+        
+        
+        
     }
 
     // 2. MÉTODO TICK PRINCIPAL
@@ -37,6 +40,7 @@ public class Juego extends InterfaceJuego {
         if (perdio) {
             entorno.escribirTexto("perdiste", 350, 300);
             return;
+            
         }
         if (gano) {
             entorno.escribirTexto("GANASTE", 350, 300);
@@ -119,6 +123,13 @@ public class Juego extends InterfaceJuego {
         if (cantidadVidas <= 0) {
             perdio = true;
         }
+        
+        for (int i = 0; i < enemigos.length; i++) {
+
+            if (enemigos[i] == null) {
+                enemigos[i] = generarEnemigo();
+            }
+        }
     }
 
 
@@ -149,18 +160,10 @@ public class Juego extends InterfaceJuego {
 
     // MÉTODO: CREAR ENEMIGOS (Usa el Random de forma local adentro del método)
     private void crearEnemigos() {
-        this.enemigos = new Enemigo[120];
-        Random r = new Random();
+        this.enemigos = new Enemigo[4];
+
         for (int i = 0; i < enemigos.length; i++) {
-            int y = 50 + r.nextInt(300);
-            int velocidad = 2 + r.nextInt(2);
-            if (i % 2 == 0) {
-                int x = -50 - (i * 350);
-                enemigos[i] = new Enemigo(x, y, 30, 30, velocidad);
-            } else {
-                int x = 850 + (i * 350);
-                enemigos[i] = new Enemigo(x, y, 30, 30, -velocidad);
-            }
+            enemigos[i] = generarEnemigo();
         }
     }
 
@@ -223,6 +226,30 @@ public class Juego extends InterfaceJuego {
             }
         }
     }
+    
+    private Enemigo generarEnemigo() {
+
+        Random r = new Random();
+
+        int y = 50 + r.nextInt(300);
+        int velocidad = 2 + r.nextInt(2);
+
+        if (r.nextBoolean()) {
+
+            int x = -50;
+
+            return new Enemigo(x, y, 30, 30, velocidad);
+
+        } else {
+
+            int x = 850;
+
+            return new Enemigo(x, y, 30, 30, -velocidad);
+        }
+    }
+    
+    
+           
 
     private void descontarVida() {
         cantidadVidas--;
@@ -234,8 +261,9 @@ public class Juego extends InterfaceJuego {
             perdio = true;
         }
     }
-
-    private void rellenarIslas() {
+    
+    @SuppressWarnings("unused")
+	private void rellenarIslas() {
         this.islas = new Isla[88];
         Random r = new Random();
         for (int i = 0; i < islas.length; i++) {
