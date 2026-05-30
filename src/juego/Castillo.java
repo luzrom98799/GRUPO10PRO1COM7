@@ -1,14 +1,15 @@
 package juego;
+
 import java.awt.Color;
 import entorno.Entorno;
 
 public class Castillo {
-<<<<<<< Updated upstream
     private int x;
     private int y;
     private int ancho;
     private int alto;
 
+    // Constructor que coincide con el 'new Castillo(3005, 300, 120, 200)' de Juego.java
     public Castillo(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -16,67 +17,63 @@ public class Castillo {
         this.alto = alto;
     }
 
+    // DIBUJAR: Muestra el rectángulo del castillo en el Entorno
     public void dibujar(Entorno e) {
-        e.dibujarRectangulo(x, y, ancho, alto, 0, Color.BLUE);
+        e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.BLUE);
     }
 
-    public int bordeDerecho() { 
-    	return this.x + this.ancho / 2; }
-    public int bordeIzquierdo() {
-    	return this.x - this.ancho / 2; }
-    public int bordeInferior() { 
-    	return this.y + this.alto / 2; }
-    public int bordeSuperior() { 
-    	return this.y - this.alto / 2; }
+    // MOVER IZQUIERDA: Método invocado por moverMundo para el scroll de la cámara
+    public void moverIzquierda(int valor) {
+        this.x = this.x - valor;
+    }
 
-    // GETTER Y SETTER PARA EL SCROLL
+    // MÉTODOS DE BORDES: Necesarios para las colisiones de victoria en Juego.java
+    public int bordeDerecho() { 
+        return this.x + this.ancho / 2; 
+    }
+
+    public int bordeIzquierdo() { 
+        return this.x - this.ancho / 2; 
+    }
+
+    public int bordeInferior() { 
+        return this.y + this.alto / 2; 
+    }
+
+    public int bordeSuperior() { 
+        return this.y - this.alto / 2; 
+    }
+
+    // GETTERS Y SETTERS
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
         this.x = x;
     }
 
-    public int getY() { 
-    	return y; }
-    public int getAncho() { 
-    	return ancho; }
-    public int getAlto() { 
-    	return alto; }
-}
-=======
-	private int x;
-	private int y;
-	private int ancho;
-	private int alto;
-	
-	public Castillo(int x, int y, int ancho, int alto) {
-		this.x= x;
-		this.y= y;
-		this.ancho= ancho;
-		this.alto= alto;
-	}
-	
-	public void dibujar(Entorno e, int offsetX) {
-		e.dibujarRectangulo(x- offsetX, y,ancho, alto,0, Color.pink);
-	}
-	
-	public int bordeDerecho(int offsetX) {
-		return (x+ancho/2)- offsetX;
-	}
-	
-	public int bordeIzquierdo(int offsetX) {
-		return (x-ancho/2)- offsetX;
-	}
-	
-	public int bordeSuperior() {
-		return y - alto/2;
-	}
-	
-	public int bordeInferior() {
-		return y+ alto/2;
-	}
+    public int getY() {
+        return this.y;
+    }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAncho() {
+        return this.ancho;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public int getAlto() {
+        return this.alto;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
+    }
 }
->>>>>>> Stashed changes

@@ -1,13 +1,15 @@
 package juego;
+
 import java.awt.Color;
 import entorno.Entorno;
+
 public class Isla {
-<<<<<<< Updated upstream
     private int x;
     private int y;
     private int ancho;
     private int alto;
 
+    // Constructor estándar compatible con tu Juego.java
     public Isla(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -15,107 +17,64 @@ public class Isla {
         this.alto = alto;
     }
 
+    // DIBUJAR: Renderiza el piso en la pantalla
     public void dibujar(Entorno e) {
-        e.dibujarRectangulo(x, y, ancho, alto, 0, Color.GREEN);
+        e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.GREEN);
     }
 
-    public int bordeDerecho() { 
-    	return this.x + this.ancho / 2; }
-    public int bordeIzquierdo() { 
-    	return this.x - this.ancho / 2; }
-    public int bordeInferior() { 
-    	return this.y + this.alto / 2; }
-    public int bordeSuperior() { 
-    	return this.y - this.alto / 2; }
+    // MOVER IZQUIERDA: Requerido para el scroll de la cámara cuando avanzas a la derecha
+    public void moverIzquierda(int valor) {
+        this.x = this.x - valor;
+    }
 
-    // GETTER Y SETTER PARA EL SCROLL
+    // MÉTODOS DE BORDES: Necesarios para las colisiones del personaje
+    public int bordeDerecho() { 
+        return this.x + this.ancho / 2; 
+    }
+
+    public int bordeIzquierdo() { 
+        return this.x - this.ancho / 2; 
+    }
+
+    public int bordeInferior() { 
+        return this.y + this.alto / 2; 
+    }
+
+    public int bordeSuperior() { 
+        return this.y - this.alto / 2; 
+    }
+
+    // GETTERS Y SETTERS
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
         this.x = x;
     }
 
-    public int getY() { 
-    	return y; }
-    public int getAncho() { 
-    	return ancho; }
-    public int getAlto() { 
-    	return alto; }
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAncho() {
+        return this.ancho;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public int getAlto() {
+        return this.alto;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
+    }
 }
-=======
-	private int x;
-	private int y;
-	private int ancho;
-	private int alto;
-	
-	public Isla(int x, int y, int ancho, int alto) {
-		this.x = x;
-		this.y = y;
-		this.ancho = ancho;
-		this.alto = alto;
-	}
-	
-	public void dibujar(Entorno e) {
-		e.dibujarRectangulo(x, y, ancho, alto, 0, Color.gray);
-	}
-	public void dibujar(Entorno e, int offsetX) {
-		e.dibujarRectangulo(x-offsetX, y, ancho, alto, 0, Color.gray);
-	}
-	
-	
-	
-	public int bordeDerecho() {
-		return this.x+this.ancho/2;
-	}
-	public int bordeIzquierdo() {
-		return this.x-this.ancho/2;
-	}
-	public int bordeInferior() {
-		return this.y+this.alto/2;
-	}
-	public int bordeSuperior() {
-		return this.y-this.alto/2;
-	}
-	
-	
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
-
-	public int getAlto() {
-		return alto;
-	}
-
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-	
-	
-	
-	
-
-}
->>>>>>> Stashed changes
