@@ -238,7 +238,7 @@ public class Juego extends InterfaceJuego {
             }
         }  
         private void actualizarIslas() { 
-            // 1. Dibujamos todas las islas del mapa como siempre
+            // 
             for (int i = 0; i < islas.length; i++) { 
                 if (islas[i] != null) { 
                     islas[i].dibujar(entorno); 

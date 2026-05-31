@@ -2,7 +2,7 @@ package juego;
 
 import java.awt.Color;
 import entorno.Entorno;
-//en la clase enemigos tenemos las variables privadas x,y,ancho,alto, un constructor Isla el cual tiene de parametros estas
+//en la clase islas tenemos las variables privadas x,y,ancho,alto, un constructor Isla el cual tiene de parametros estas
 //variables, ademas un metodo     public void dibujar(Entorno e) que dibuja a los enemigos como un rectangulo
 public class Isla {
     private int x;
