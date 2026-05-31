@@ -30,7 +30,7 @@ public class Proyectil {
         }
     }
 
-    // Método para mover el proyectil en cada frame
+    // Método para mover el proyectil 
     public void mover() {
         this.x += this.deltaX;
         this.y += this.deltaY;
