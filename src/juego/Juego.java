@@ -16,7 +16,7 @@ public class Juego extends InterfaceJuego {
     private int cantidadVidas;
     private boolean perdio;
 
-    // 1. CONSTRUCTOR JUEGO
+    // CONSTRUCTOR JUEGO
     Juego() {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         gano = false;
@@ -25,13 +25,13 @@ public class Juego extends InterfaceJuego {
         enemigos= new Enemigo[30];
         this.islas = new Isla[30]; 
         crearIslas(); 
-        // LLAMADA A MÉTODOS DE CREACIÓN
+        // LLAMADA metodos DE CREACIÓN
         crearPersonaje();
         castillo = new Castillo(0, 400, 120, 200);
         this.entorno.iniciar();
     }
 
-    // 2. MÉTODO TICK PRINCIPAL
+    //  TICK PRINCIPAL
     public void tick() {
         if (perdio) {
             entorno.escribirTexto("perdiste", 350, 300);
@@ -238,7 +238,7 @@ public class Juego extends InterfaceJuego {
             }
         }  
         private void actualizarIslas() { 
-            // 
+            // 1. Dibujamos todas las islas del mapa como siempre
             for (int i = 0; i < islas.length; i++) { 
                 if (islas[i] != null) { 
                     islas[i].dibujar(entorno); 
@@ -271,17 +271,15 @@ public class Juego extends InterfaceJuego {
             
             for (int i = 0; i < islas.length; i++) {
                 
-                // 1. LA Y AL AZAR POR PISOS: Tiramos un dado del 0 al 2
+                //  dado del 0 al 2
                 int dado = r.nextInt(3);
                 
                 if (dado == 0) {
-                    // ¡PISO DE ABAJO FIJO! Multiplicamos 'i' por 120 de forma exacta.
-                    // Al no sumarle r.nextInt(), el suelo avanza con un paso perfecto y sin baches.
-                    int xFijoSuelo = (i * 120) + 100; // El +100 es para el margen inicial izquierdo
+
                     this.islas[i] = new Isla(xFijoSuelo, 550, 100, 10);
                     
                 } else if (dado == 1) {
-                    // PISOS FLOTANTES CON RANDOM: Estos sí se estiran un poco más y varían
+
                     int xRandomMedio = (i * 120) + r.nextInt(50);
                     this.islas[i] = new Isla(xRandomMedio, 360, 60, 10);
                     
@@ -306,4 +304,3 @@ public class Juego extends InterfaceJuego {
     public Isla[] getIslas() { return islas; }
     public void setIslas(Isla[] islas) { this.islas = islas; }
 }
-

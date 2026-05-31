@@ -22,7 +22,7 @@ public class Castillo {
         e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.BLUE);
     }
 
-    // MOVER IZQUIERDA: Método invocado por moverMundo para el scroll de la cámara
+    // MOVER IZQUIERDA: Método invocado por moverMundo para mov de mundo
     public void moverIzquierda(int valor) {
         this.x = this.x - valor;
     }

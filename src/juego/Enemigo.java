@@ -10,7 +10,7 @@ public class Enemigo {
     private int alto;
     private int velocidad;
 
-    // Constructor corregido para aceptar el ancho y alto que le pasás en Juego.java
+    // CONSTRUCTOR: El molde para fabricar cada bicho
     public Enemigo(int x, int y, int ancho, int alto, int velocidad) {
         this.x = x;
         this.y = y;
@@ -19,84 +19,45 @@ public class Enemigo {
         this.velocidad = velocidad;
     }
 
-    // DIBUJAR: Centrado usando sus coordenadas
+    // DIBUJAR: Muestra al enemigo en la pantalla
     public void dibujar(Entorno e) {
-        // Usamos dibujarCirculo manteniendo el diámetro basado en su ancho/alto
-        e.dibujarCirculo(this.x, this.y, this.ancho, Color.RED);
-    }
- // ADENTRO DE TU CLASE ENEMIGO
-    public boolean colisionaConIsla(Isla[] listaIslas) {
-        for (int i = 0; i < listaIslas.length; i++) {
-            if (listaIslas[i] != null) {
-                
-                // Calculamos los bordes del enemigo usando sus métodos
-                int miIzquierda = this.x - (this.getAncho() / 2);
-                int miDerecha   = this.x + (this.getAncho() / 2);
-                int miTecho     = this.y - (this.getAlto() / 2);
-                int miPiso      = this.y + (this.getAlto() / 2);
-
-                // Calculamos los bordes de la isla que estamos revisando
-                int islaIzquierda = listaIslas[i].getX() - (listaIslas[i].getAncho() / 2);
-                int islaDerecha   = listaIslas[i].getX() + (listaIslas[i].getAncho() / 2);
-                int islaTecho     = listaIslas[i].getY() - (listaIslas[i].getAlto() / 2);
-                int islaPiso      = listaIslas[i].getY() + (listaIslas[i].getAlto() / 2);
-
-                // Caja de colisión tradicional (AABB)
-                if (miDerecha >= islaIzquierda && 
-                    miIzquierda <= islaDerecha && 
-                    miPiso >= islaTecho && 
-                    miTecho <= islaPiso) {
-                    return true; // Hubo choque real
-                }
-            }
-        }
-        return false; // No tocó ninguna isla
+        // Podés cambiar el color si preferís que sean distintos al personaje
+        e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.BLUE);
     }
 
-
-    // MOVER: Se desplaza según la velocidad asignada (positiva o negativa)
+    // MOVER: Modifica la X según su velocidad (si es positiva va a la derecha, si es negativa a la izquierda)
     public void mover() {
         this.x = this.x + this.velocidad;
     }
 
-    public void moverIzquierda(int valor) {
-        this.x = this.x - valor;
+    // MÉTODOS DE BORDES: Claves para que funcionen las colisiones en actualizarEnemigos()
+    public int bordeDerecho() {
+        return this.x + this.ancho / 2;
     }
 
-    // FUERA PANTALLA: Valida si el enemigo se pasó de los límites laterales
-    public boolean fueraPantalla() {
-        return this.x < -100 || this.x > 900;
+    public int bordeIzquierdo() {
+        return this.x - this.ancho / 2;
     }
 
-    // MÉTODOS DE BORDES: Iguales a los de Personaje.java para resolver los errores de colisión
-    public int bordeDerecho() { 
-        return this.x + this.ancho / 2; 
+    public int bordeInferior() {
+        return this.y + this.alto / 2;
     }
 
-    public int bordeIzquierdo() { 
-        return this.x - this.ancho / 2; 
+    public int bordeSuperior() {
+        return this.y - this.alto / 2;
     }
 
-    public int bordeInferior() { 
-        return this.y + this.alto / 2; 
-    }
-
-    public int bordeSuperior() { 
-        return this.y - this.alto / 2; 
-    }
-
-    // GETTERS Y SETTERS
+    // GETTERS Y SETTERS: Los puentes obligatorios para comunicarse con la clase Juego
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
-        // Permite mover al enemigo si es necesario desde el juego
-        this.x = x; 
+        this.x = x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -104,26 +65,19 @@ public class Enemigo {
     }
 
     public int getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(int ancho) {
-        this.ancho = ancho;
+        return this.ancho;
     }
 
     public int getAlto() {
-        return alto;
-    }
-
-    public void setAlto(int alto) {
-        this.alto = alto;
+        return this.alto;
     }
 
     public int getVelocidad() {
-        return velocidad;
+        return this.velocidad;
     }
 
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
 }
+
