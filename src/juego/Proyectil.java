@@ -11,7 +11,7 @@ public class Proyectil {
     private double deltaY;
     private double velocidad;
 
-    // Constructor que coincide exactamente con el "new Proyectil" de Personaje
+    // Constructor 
     public Proyectil(int x, int y, int diametro, double deltaX, double deltaY) {
         this.x = x;
         this.y = y;

@@ -24,6 +24,35 @@ public class Enemigo {
         // Usamos dibujarCirculo manteniendo el diámetro basado en su ancho/alto
         e.dibujarCirculo(this.x, this.y, this.ancho, Color.RED);
     }
+ // ADENTRO DE TU CLASE ENEMIGO
+    public boolean colisionaConIsla(Isla[] listaIslas) {
+        for (int i = 0; i < listaIslas.length; i++) {
+            if (listaIslas[i] != null) {
+                
+                // Calculamos los bordes del enemigo usando sus métodos
+                int miIzquierda = this.x - (this.getAncho() / 2);
+                int miDerecha   = this.x + (this.getAncho() / 2);
+                int miTecho     = this.y - (this.getAlto() / 2);
+                int miPiso      = this.y + (this.getAlto() / 2);
+
+                // Calculamos los bordes de la isla que estamos revisando
+                int islaIzquierda = listaIslas[i].getX() - (listaIslas[i].getAncho() / 2);
+                int islaDerecha   = listaIslas[i].getX() + (listaIslas[i].getAncho() / 2);
+                int islaTecho     = listaIslas[i].getY() - (listaIslas[i].getAlto() / 2);
+                int islaPiso      = listaIslas[i].getY() + (listaIslas[i].getAlto() / 2);
+
+                // Caja de colisión tradicional (AABB)
+                if (miDerecha >= islaIzquierda && 
+                    miIzquierda <= islaDerecha && 
+                    miPiso >= islaTecho && 
+                    miTecho <= islaPiso) {
+                    return true; // Hubo choque real
+                }
+            }
+        }
+        return false; // No tocó ninguna isla
+    }
+
 
     // MOVER: Se desplaza según la velocidad asignada (positiva o negativa)
     public void mover() {

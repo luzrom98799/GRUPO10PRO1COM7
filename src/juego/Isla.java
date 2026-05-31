@@ -2,14 +2,15 @@ package juego;
 
 import java.awt.Color;
 import entorno.Entorno;
-
+//en la clase enemigos tenemos las variables privadas x,y,ancho,alto, un constructor Isla el cual tiene de parametros estas
+//variables, ademas un metodo     public void dibujar(Entorno e) que dibuja a los enemigos como un rectangulo
 public class Isla {
     private int x;
     private int y;
     private int ancho;
     private int alto;
 
-    // Constructor estándar compatible con tu Juego.java
+    // Constructor estándar compatible Juego.java
     public Isla(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -22,7 +23,7 @@ public class Isla {
         e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.GREEN);
     }
 
-    // MOVER IZQUIERDA: Requerido para el scroll de la cámara cuando avanzas a la derecha
+    // MOVER IZQUIERDA: Requerido para cuando se avamza a la derecha
     public void moverIzquierda(int valor) {
         this.x = this.x - valor;
     }
