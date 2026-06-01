@@ -28,6 +28,11 @@ public class Juego extends InterfaceJuego {
         // LLAMADA metodos DE CREACIÓN
         crearPersonaje();
         castillo = new Castillo(0, 400, 120, 200);
+
+        crearIslas();
+        crearEnemigos();
+       
+        castillo = new Castillo(3005, 300, 120, 200);
         this.entorno.iniciar();
     }
 
@@ -137,6 +142,27 @@ public class Juego extends InterfaceJuego {
 
 
 
+    // MÉTODO: MOVER MUNDO
+    private void moverMundo(int velocidad) {
+        for (int i = 0; i < islas.length; i++) {
+            if (islas[i] != null) {
+                islas[i].setX(islas[i].getX() - velocidad);
+            }
+        }
+        if (castillo != null) {
+            castillo.setX(castillo.getX() - velocidad);
+        }
+        
+        for (int i = 0; i < enemigos.length; i++) {
+            if (enemigos[i] != null) {
+                enemigos[i].setX(enemigos[i].getX() - velocidad);
+            }
+        }
+    }
+    
+
+
+
 
 
     // MÉTODO: este metodo actualiza enemigos es decir los dibuja y vuelve null(los mata x.x) ENEMIGOS debe ser independiente y no moverse con el mundo :C
@@ -146,12 +172,20 @@ public class Juego extends InterfaceJuego {
             enemigos[i].mover();
             enemigos[i].dibujar(entorno);
 
+
             if (enemigos[i].getVelocidad() > 0 && enemigos[i].getX() > 830) {
                 enemigos[i] = null;
                 continue;
             } else if (enemigos[i].getVelocidad() < 0 && enemigos[i].getX() < -30) {
                 enemigos[i]=null;
                 continue;
+
+            if (enemigos[i].getVelocidad() < 0 && enemigos[i].getX() < -50) {
+                enemigos[i].setX(850);
+               
+            } else if (enemigos[i].getVelocidad() > 0 && enemigos[i].getX() > 850) {
+                enemigos[i].setX(-50);
+
             }
 
             if (p != null && p.getDisparo() != null && p.getDisparo().colisionaConObstaculo(enemigos[i])) {
@@ -301,6 +335,6 @@ public class Juego extends InterfaceJuego {
         Juego juego = new Juego();
     }
 
-    public Isla[] getIslas() { return islas; }
-    public void setIslas(Isla[] islas) { this.islas = islas; }
+//    public Isla[] getIslas() { return islas; }
+//    public void setIslas(Isla[] islas) { this.islas = islas; }
 }

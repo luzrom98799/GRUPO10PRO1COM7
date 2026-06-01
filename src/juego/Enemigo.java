@@ -39,8 +39,17 @@ public class Enemigo {
         return this.x - this.ancho / 2;
     }
 
+
     public int bordeInferior() {
         return this.y + this.alto / 2;
+
+    
+    
+   
+    // MÉTODOS DE BORDES: Iguales a los de Personaje.java para resolver los errores de colisión
+    public int bordeDerecho() { 
+        return this.x + this.ancho / 2; 
+
     }
 
     public int bordeSuperior() {
@@ -79,5 +88,7 @@ public class Enemigo {
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
+
+	
 }
 
