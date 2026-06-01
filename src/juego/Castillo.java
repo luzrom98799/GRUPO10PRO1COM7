@@ -9,7 +9,7 @@ public class Castillo {
     private int ancho;
     private int alto;
 
-    // Constructor que coincide con el 'new Castillo(3005, 300, 120, 200)' de Juego.java
+    // Constructor para Juego.java
     public Castillo(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;

@@ -11,7 +11,7 @@ public class Proyectil {
     private double deltaY;
     private double velocidad;
 
-    // Constructor que coincide exactamente con el "new Proyectil" de Personaje
+    // Constructor 
     public Proyectil(int x, int y, int diametro, double deltaX, double deltaY) {
         this.x = x;
         this.y = y;
@@ -51,7 +51,7 @@ public class Proyectil {
                Math.abs(this.y - enemigo.getY()) < (this.diametro / 2 + enemigo.getAlto() / 2);
     }
 
-    // Getters y Setters necesarios para Juego.java
+    // Getters y Setterspara Juego.java
     public int getX() {
         return (int) this.x;
     }

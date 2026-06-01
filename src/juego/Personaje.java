@@ -120,7 +120,7 @@ public class Personaje {
         // Controlado por cantidadVidas en Juego
     }
 
-    // GETTERS Y SETTERS (Sin duplicados y bien cerrados)
+    // GETTERS Y SETTER
     public int getX() {
         return x;
     }
