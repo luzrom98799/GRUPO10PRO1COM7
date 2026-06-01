@@ -38,7 +38,9 @@ public class Enemigo {
     public boolean fueraPantalla() {
         return this.x < -100 || this.x > 900;
     }
-
+    
+    
+   
     // MÉTODOS DE BORDES: Iguales a los de Personaje.java para resolver los errores de colisión
     public int bordeDerecho() { 
         return this.x + this.ancho / 2; 
@@ -97,4 +99,6 @@ public class Enemigo {
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
+
+	
 }

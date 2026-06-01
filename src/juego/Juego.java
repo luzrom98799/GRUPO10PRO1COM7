@@ -27,7 +27,7 @@ public class Juego extends InterfaceJuego {
         crearPersonaje();
         crearIslas();
         crearEnemigos();
-        
+       
         castillo = new Castillo(3005, 300, 120, 200);
         this.entorno.iniciar();
         
@@ -177,7 +177,14 @@ public class Juego extends InterfaceJuego {
         if (castillo != null) {
             castillo.setX(castillo.getX() - velocidad);
         }
+        
+        for (int i = 0; i < enemigos.length; i++) {
+            if (enemigos[i] != null) {
+                enemigos[i].setX(enemigos[i].getX() - velocidad);
+            }
+        }
     }
+    
 
     private boolean esFinDelMapa() {
         int xDeLaIslaMasLejana = 0;
@@ -210,6 +217,7 @@ public class Juego extends InterfaceJuego {
 
             if (enemigos[i].getVelocidad() < 0 && enemigos[i].getX() < -50) {
                 enemigos[i].setX(850);
+               
             } else if (enemigos[i].getVelocidad() > 0 && enemigos[i].getX() > 850) {
                 enemigos[i].setX(-50);
             }
@@ -287,7 +295,7 @@ public class Juego extends InterfaceJuego {
         Juego juego = new Juego();
     }
 
-    public Isla[] getIslas() { return islas; }
-    public void setIslas(Isla[] islas) { this.islas = islas; }
+//    public Isla[] getIslas() { return islas; }
+//    public void setIslas(Isla[] islas) { this.islas = islas; }
 }
 
