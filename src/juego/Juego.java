@@ -140,8 +140,12 @@ public class Juego extends InterfaceJuego {
 
     // MÉTODO: CREAR ISLAS (Usa el Random de forma local adentro del método)
     private void crearIslas() {
-        this.islas = new Isla[50];
+        this.islas = new Isla[49];
+        
         Random r = new Random();
+        
+        
+        
         for (int i = 0; i < islas.length; i++) {
             int columna = i / 3;
             int fila = i % 3;
@@ -149,11 +153,11 @@ public class Juego extends InterfaceJuego {
             if (fila == 0) {
                 islas[i] = new Isla(x, 500, 140, 200);
             } else if (fila == 1) {
-                int y = 300 + r.nextInt(80);
-                islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
+                int y = 300 ;
+                islas[i] = new Isla(x + r.nextInt(200), y, 100, 15);
             } else {
-                int y = 160 + r.nextInt(80);
-                islas[i] = new Isla(x + r.nextInt(50), y, 100, 15);
+                int y = 180 ;
+                islas[i] = new Isla(x + r.nextInt(150), y, 100, 15);
             }
         }
     }
@@ -237,7 +241,6 @@ public class Juego extends InterfaceJuego {
         }
     }
     
-    @SuppressWarnings("unused")
     private Enemigo generarEnemigo() {
         Random r = new Random();
         int velocidad = 2;
@@ -254,13 +257,13 @@ public class Juego extends InterfaceJuego {
         } else {
             yFinal = yBaja; // toca la altura 250
         }
-        int separacionXdeEnemigo = r.nextInt(300);
+        int separacionXdeEnemigo = r.nextInt(200);
         // un boolean q Verdadero = Izquierda y Falso = Derecha)
         if (r.nextBoolean()) {
             int x = -10-separacionXdeEnemigo;
             return new Enemigo(x, yFinal, 30, 30, velocidad);
         } else {
-            int x = 850+ separacionXdeEnemigo;
+            int x = 810+ separacionXdeEnemigo;
             return new Enemigo(x, yFinal, 30, 30, -velocidad);
         }
     }
@@ -280,25 +283,7 @@ public class Juego extends InterfaceJuego {
         }
     }
     
-    @SuppressWarnings("unused")
-	private void rellenarIslas() {
-        this.islas = new Isla[87];
-        Random r = new Random();
-        for (int i = 0; i < islas.length; i++) {
-            int columna = i / 3;
-            int fila = i % 3;
-            int x = 100 + (columna * 180);
-            if (fila == 0) {
-                islas[i] = new Isla(x, 650, 140, 200);
-            } else if (fila == 1) {
-                int y = 200;
-                islas[i] = new Isla(x + r.nextInt(100), y, 100, 15);
-            } else {
-                int y = 210;
-                islas[i] = new Isla(x + r.nextInt(200), y, 90, 15);
-            }
-        }
-    }
+   
 
     public static void main(String[] args) {
         @SuppressWarnings("unused")
