@@ -153,10 +153,10 @@ public class Juego extends InterfaceJuego {
             if (fila == 0) {
                 islas[i] = new Isla(x, 500, 140, 200);
             } else if (fila == 1) {
-                int y = 300 ;
+                int y = 330 ;
                 islas[i] = new Isla(x + r.nextInt(200), y, 100, 15);
             } else {
-                int y = 180 ;
+                int y = 220 ;
                 islas[i] = new Isla(x + r.nextInt(150), y, 100, 15);
             }
         }
@@ -247,7 +247,7 @@ public class Juego extends InterfaceJuego {
         
         // dos alturas fijas
         int yAlta = 120;
-        int yBaja = 250;
+        int yBaja = 270;
         int yFinal;
         
         // una de las dos alturas 
@@ -255,7 +255,7 @@ public class Juego extends InterfaceJuego {
         if (elegirY == 0) {
             yFinal = yAlta; // toca la altura 120
         } else {
-            yFinal = yBaja; // toca la altura 250
+            yFinal = yBaja; // toca la altura 270
         }
         int separacionXdeEnemigo = r.nextInt(200);
         // un boolean q Verdadero = Izquierda y Falso = Derecha)
