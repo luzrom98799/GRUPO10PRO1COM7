@@ -274,7 +274,7 @@ public class Juego extends InterfaceJuego {
 
     private void descontarVida() {
         cantidadVidas--;
-        if (p != null) p.recibirDaño(1);
+        if (p != null) ;
         if (cantidadVidas > 0) {
             crearPersonaje();
         } else {
@@ -288,7 +288,8 @@ public class Juego extends InterfaceJuego {
     public static void main(String[] args) {
         @SuppressWarnings("unused")
         Juego juego = new Juego();
+       
     }
 
-}
+} 
 

@@ -23,7 +23,7 @@ public class Isla {
         e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.GREEN);
     }
 
-    // MOVER IZQUIERDA: Requerido para el scroll de la cámara cuando avanzas a la derecha
+    // MOVER IZQUIERDA:  para el avance de la cámara cuando avanzas a la derecha
     public void moverIzquierda(int valor) {
         this.x = this.x - valor;
     }

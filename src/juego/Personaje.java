@@ -20,6 +20,7 @@ public class Personaje {
 
     public void dibujar(Entorno e) {
         e.dibujarRectangulo(x, y, ancho, alto, 0, Color.RED);
+      
     }
 
     public void moverIzquierda() {
@@ -116,9 +117,7 @@ public class Personaje {
         return this.y - this.alto / 2;
     }
 
-    public void recibirDaño(int daño) {
-        // Controlado por cantidadVidas en Juego
-    }
+   
 
     // GETTERS Y SETTER
     public int getX() {
