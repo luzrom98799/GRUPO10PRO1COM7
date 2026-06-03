@@ -33,11 +33,6 @@ public class Enemigo {
     public void moverIzquierda(int valor) {
         this.x = this.x - valor;
     }
-
-    // FUERA PANTALLA: Valida si el enemigo se pasó de los límites laterales
-    public boolean fueraPantalla() {
-        return this.x < -100 || this.x > 900;
-    }
     
     
    
