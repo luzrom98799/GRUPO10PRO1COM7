@@ -23,7 +23,7 @@ public class Juego extends InterfaceJuego {
         perdio = false;
         cantidadVidas = 5;
         
-        // LLAMADAs de metodps DE CREACIÓN
+        // LLAMADAS de metodos DE CREACIÓN
         crearPersonaje();
         crearIslas();
         crearEnemigos();
@@ -111,6 +111,7 @@ public class Juego extends InterfaceJuego {
             // Caída al vacío
             if (p.getY() > entorno.alto()) {
                 descontarVida();
+                crearPersonaje();
             }
 
             // Colisión con la victoria
@@ -172,19 +173,19 @@ public class Juego extends InterfaceJuego {
     }
 
     // MÉTODO: MOVER MUNDO
-    private void moverMundo(int velocidad) {
+    private void moverMundo(int movimiento) {
         for (int i = 0; i < islas.length; i++) {
             if (islas[i] != null) {
-                islas[i].setX(islas[i].getX() - velocidad);
+                islas[i].setX(islas[i].getX() - movimiento);
             }
         }
         if (castillo != null) {
-            castillo.setX(castillo.getX() - velocidad);
+            castillo.setX(castillo.getX() - movimiento);
         }
         
         for (int i = 0; i < enemigos.length; i++) {
             if (enemigos[i] != null) {
-                enemigos[i].setX(enemigos[i].getX() - velocidad);
+                enemigos[i].setX(enemigos[i].getX() -  movimiento);
             }
         }
     }
@@ -276,7 +277,7 @@ public class Juego extends InterfaceJuego {
         cantidadVidas--;
         if (p != null) ;
         if (cantidadVidas > 0) {
-            crearPersonaje();
+            
         } else {
             p = null;
             perdio = true;
