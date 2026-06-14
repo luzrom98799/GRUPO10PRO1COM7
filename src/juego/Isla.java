@@ -23,10 +23,11 @@ public class Isla {
         e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.GREEN);
     }
 
-    // MOVER IZQUIERDA:  para el avance de la cámara cuando avanzas a la derecha
-    public void moverIzquierda(int valor) {
+
+
+     public void moverIzquierda(int valor) {
         this.x = this.x - valor;
-    }
+     }
 
     // MÉTODOS DE BORDES: Necesarios para las colisiones del personaje
     public int bordeDerecho() { 
@@ -78,4 +79,5 @@ public class Isla {
         this.alto = alto;
     }
 }
+
 

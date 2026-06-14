@@ -35,7 +35,7 @@ public class Juego extends InterfaceJuego {
         
     }
 
-    // 2. MÉTODO TICK PRINCIPAL
+    //  MÉTODO TICK PRINCIPAL
     public void tick() {
         if (perdio) {
             entorno.escribirTexto("perdiste", 350, 300);
@@ -94,19 +94,7 @@ public class Juego extends InterfaceJuego {
                 }
             }
 
-            // Gravedad y saltos
-            if (!p.colisionaPorAbajo(islas)) {
-                p.setY(p.getY() + 2);
-            }
 
-            if (salto > 0) {
-                if (!p.colisionaPorArriba(islas)) {
-                    p.setY(p.getY() - 6);
-                    salto--;
-                } else {
-                    salto = 0;
-                }
-            }
 
             // Caída al vacío
             if (p.getY() > entorno.alto()) {
@@ -144,9 +132,6 @@ public class Juego extends InterfaceJuego {
         this.islas = new Isla[49];
         
         Random r = new Random();
-        
-        
-        
         for (int i = 0; i < islas.length; i++) {
             int columna = i / 3;
             int fila = i % 3;
