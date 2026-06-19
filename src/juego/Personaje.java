@@ -49,7 +49,7 @@ public class Personaje {
         for (int i = 0; i < islas.length; i++) {
             Isla isla = islas[i];
             if (isla != null) {
-                if (bordeIzquierdo() <= isla.bordeDerecho() && bordeIzquierdo() >= isla.bordeDerecho()) {
+                if (bordeIzquierdo() <= isla.bordeDerecho() && bordeIzquierdo() >= isla.bordeDerecho()-5) {
                     if (bordeInferior() > isla.bordeSuperior() && bordeSuperior() < isla.bordeInferior()) {
                         return true;
                     }
